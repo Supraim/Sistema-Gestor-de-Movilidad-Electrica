@@ -1,42 +1,43 @@
-### IntelliJ IDEA ###
-../Proyecto/out/
-!**/src/main/**/out/
-!**/src/test/**/out/
-.kotlin
-
-### Eclipse ###
-.apt_generated
-.classpath
-.factorypath
-.project
-.settings
-.springBeans
-.sts4-cache
-bin/
-!**/src/main/**/bin/
-!**/src/test/**/bin/
-
-### NetBeans ###
-/nbproject/private/
-/nbbuild/
-/dist/
-/nbdist/
-/.nb-gradle/
-
-### VS Code ###
-.vscode/
-
-### Mac OS ###
-.DS_Store
-
-.idea/
-.idea/misc.xml
-
-*.iml
-
-*.log
-*.temp
-*.tmp
-
+############################
+# Maven
+############################
+target/
 pom.xml.tag
 pom.xml.releaseBackup
+pom.xml.next
+pom.xml.bak
+release.properties
+dependency-reduced-pom.xml
+buildNumber.properties
+
+############################
+# IntelliJ IDEA
+############################
+.idea/
+*.iml
+*.iws
+
+#!.idea/codeStyles/
+#!.idea/runConfigurations/
+
+############################
+# Logs & temp
+############################
+*.log
+*.tmp
+*.temp
+
+############################
+# OS
+############################
+.DS_Store
+
+############################
+# VS Code
+############################
+.vscode/
+
+############################
+# Compilados Java
+############################
+*.class
