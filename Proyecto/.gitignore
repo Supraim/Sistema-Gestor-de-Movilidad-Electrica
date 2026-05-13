@@ -33,3 +33,10 @@ bin/
 .idea/misc.xml
 
 *.iml
+
+*.log
+*.temp
+*.tmp
+
+pom.xml.tag
+pom.xml.releaseBackup
