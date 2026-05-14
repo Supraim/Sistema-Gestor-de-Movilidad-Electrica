@@ -77,7 +77,7 @@ public class Cargador {
     public void setPotenciaMinima(int potenciaMinima) {
         this.potenciaMinima = potenciaMinima;
     }
-    
+
     public LocalDateTime getTiempoEstimadoFinalizacion() {
         return tiempoEstimadoFinalizacion;
     }
