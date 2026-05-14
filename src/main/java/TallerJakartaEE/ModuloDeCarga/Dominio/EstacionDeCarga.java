@@ -1,11 +1,14 @@
 package TallerJakartaEE.ModuloDeCarga.Dominio;
 
+import java.util.List;
+
 public class EstacionDeCarga {
     private String descripcion;
     private String calle;
     private String departamento;
     private int longitud;
     private int latitud;
+    private List<Cargador> cargadores;
 
     public EstacionDeCarga(){
 
@@ -56,5 +59,13 @@ public class EstacionDeCarga {
 
     public void setLatitud(int latitud) {
         this.latitud = latitud;
+    }
+
+    public List<Cargador> getCargadores() {
+        return cargadores;
+    }
+
+    public void setCargadores(List<Cargador> cargadores) {
+        this.cargadores = cargadores;
     }
 }

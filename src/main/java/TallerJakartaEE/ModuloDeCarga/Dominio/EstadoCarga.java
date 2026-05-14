@@ -11,7 +11,7 @@ public enum EstadoCarga {
 
     public static EstadoCarga getById(int id) {
         return switch (id) {
-            case 1 -> POR_COMPLETAR;
+            case 1 -> CARGANDO;
             case 2 -> COMPLETA;
             case 3 -> EXCEDIDA;
             default -> throw new IllegalArgumentException("Tipo de Estado de Carga no soportado.");
