@@ -1,5 +1,5 @@
 package TallerJakartaEE.ModuloDePagos.Dominio;
 
-public class MedioDePago {
+public abstract class MedioDePago {
 
 }
