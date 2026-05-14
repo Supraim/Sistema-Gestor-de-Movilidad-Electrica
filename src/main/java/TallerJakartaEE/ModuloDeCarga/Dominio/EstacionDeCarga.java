@@ -11,7 +11,11 @@ public class EstacionDeCarga {
 
     }
     public EstacionDeCarga(String descripcion, String calle, String departamento, int longitud, int latitud){
-
+        this.descripcion = descripcion;
+        this.calle = calle;
+        this.departamento = departamento;
+        this.longitud = longitud;
+        this.latitud = latitud;
     }
 
     public String getDescripcion() {
