@@ -42,4 +42,5 @@ buildNumber.properties
 ############################
 *.class
 
-.referencia
+referencia
+referencia/

@@ -7,25 +7,82 @@
     <groupId>com.facundo.nicolas.jakarta</groupId>
     <artifactId>Proyecto</artifactId>
     <version>1.0-SNAPSHOT</version>
+    <packaging>war</packaging>
 
     <properties>
-        <maven.compiler.source>21</maven.compiler.source>
-        <maven.compiler.target>21</maven.compiler.target>
+        <maven.compiler.source>17</maven.compiler.source>
+        <maven.compiler.target>17</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <jakartaee-api.version>10.0.0</jakartaee-api.version>
+        <wildfly.version>27.0.1.Final</wildfly.version>
         <junit.jupiter.version>5.11.2</junit.jupiter.version>
     </properties>
 
     <dependencies>
+        <!-- Jakarta EE (incluye JPA, CDI, JAX-RS, EJB, etc.) -->
+        <dependency>
+            <groupId>jakarta.platform</groupId>
+            <artifactId>jakarta.jakartaee-api</artifactId>
+            <version>${jakartaee-api.version}</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <!-- Lombok (reduce boilerplate) -->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.18.32</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <!-- Tests -->
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter</artifactId>
             <version>${junit.jupiter.version}</version>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-core</artifactId>
+            <version>4.5.1</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-junit-jupiter</artifactId>
+            <version>4.5.1</version>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
 
     <build>
+        <finalName>movilidad-electrica</finalName>
         <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.11.0</version>
+            </plugin>
+            <plugin>
+                <artifactId>maven-war-plugin</artifactId>
+                <version>3.3.2</version>
+                <configuration>
+                    <failOnMissingWebXml>false</failOnMissingWebXml>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.wildfly.plugins</groupId>
+                <artifactId>wildfly-maven-plugin</artifactId>
+                <version>4.1.0.Final</version>
+                <configuration>
+                    <version>${wildfly.version}</version>
+                    <server-config>standalone-full.xml</server-config>
+                    <scripts>
+                        <script>config.cli</script>
+                    </scripts>
+                </configuration>
+            </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
@@ -33,5 +90,4 @@
             </plugin>
         </plugins>
     </build>
-
 </project>
