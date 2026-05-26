@@ -1,10 +1,23 @@
 package TallerJakartaEE.ModuloDeCarga.Dominio;
 
+import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.Locale;
 
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+@Entity
+@Table(name = "carga_carga")
 public class Carga {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long id;
+
     private Date fecha;
     private LocalDateTime horaInicio;
     private LocalDateTime horaFin;
@@ -14,8 +27,7 @@ public class Carga {
     private LocalDateTime horaEstimadaFin;
     private EstadoCarga estado;
 
-    public Carga() {}
-
+    /*
     public Carga(Date fecha, LocalDateTime horaInicio, LocalDateTime horaFin, float importeTotal, float recargoPorDemora, EstadoCarga estado) {
         this.fecha = fecha;
         this.horaInicio = horaInicio;
@@ -35,69 +47,5 @@ public class Carga {
         this.horaEstimadaFin = horaEstimadaFin;
         this.estado = estado;
     }
-
-
-    public Date getFecha() {
-        return fecha;
-    }
-
-    public void setFecha(Date fecha) {
-        this.fecha = fecha;
-    }
-
-    public LocalDateTime getHoraInicio() {
-        return horaInicio;
-    }
-
-    public void setHoraInicio(LocalDateTime horaInicio) {
-        this.horaInicio = horaInicio;
-    }
-
-    public LocalDateTime getHoraFin() {
-        return horaFin;
-    }
-
-    public void setHoraFin(LocalDateTime horaFin) {
-        this.horaFin = horaFin;
-    }
-
-    public float getImporteTotal() {
-        return importeTotal;
-    }
-
-    public void setImporteTotal(float importeTotal) {
-        this.importeTotal = importeTotal;
-    }
-
-    public float getRecargoPorDemora() {
-        return recargoPorDemora;
-    }
-
-    public void setRecargoPorDemora(float recargoPorDemora) {
-        this.recargoPorDemora = recargoPorDemora;
-    }
-
-    public int getPorcentajeAvance() {
-        return porcentajeAvance;
-    }
-
-    public void setPorcentajeAvance(int porcentajeAvance) {
-        this.porcentajeAvance = porcentajeAvance;
-    }
-
-    public LocalDateTime getHoraEstimadaFin() {
-        return horaEstimadaFin;
-    }
-
-    public void setHoraEstimadaFin(LocalDateTime horaEstimadaFin) {
-        this.horaEstimadaFin = horaEstimadaFin;
-    }
-
-    public EstadoCarga getEstado() {
-        return estado;
-    }
-
-    public void setEstado(EstadoCarga estado) {
-        this.estado = estado;
-    }
+*/
 }

@@ -1,21 +1,16 @@
 package TallerJakartaEE.ModuloDePagos.Dominio;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+@Entity
+@Table(name = "pagos_cuenta_ute")
 public class CuentaUTE extends MedioDePago {
     private String numeroCuenta;
-
-    public CuentaUTE() {
-
-    }
-
-    public CuentaUTE(String numeroCuenta) {
-        this.numeroCuenta = numeroCuenta;
-    }
-
-    public String getNumeroCuenta() {
-        return numeroCuenta;
-    }
-
-    public void setNumeroCuenta(String numeroCuenta) {
-        this.numeroCuenta = numeroCuenta;
-    }
 }
