@@ -11,7 +11,7 @@ import java.util.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "clientes_reclamo")
+@Table(name = "pagos_tarjeta")
 public class Tarjeta extends MedioDePago {
     private String numero;
     private Date fechaVencimiento;
