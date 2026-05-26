@@ -1,12 +1,12 @@
 package TallerJakartaEE.ModuloDeClientes.Dominio;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
+@EqualsAndHashCode(callSuper = true)
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
 @Entity
 @Table(name = "clientes_cliente_comun")
