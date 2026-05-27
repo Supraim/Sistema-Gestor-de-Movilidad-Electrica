@@ -19,7 +19,7 @@ public class ServicioClienteImpl implements ServicioCliente {
 
     @Override
     public void registrarCliente(Cliente cliente) {
-
+        repositorio.saveCliente(cliente);
     }
 
     @Override
