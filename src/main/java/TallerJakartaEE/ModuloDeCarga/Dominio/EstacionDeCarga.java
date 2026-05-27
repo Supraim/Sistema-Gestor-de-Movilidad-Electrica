@@ -17,6 +17,7 @@ public class EstacionDeCarga {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Lob
     private String descripcion;
     private String calle;
     private String departamento;

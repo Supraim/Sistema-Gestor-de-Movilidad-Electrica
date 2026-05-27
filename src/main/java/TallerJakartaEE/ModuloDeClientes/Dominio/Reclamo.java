@@ -16,6 +16,7 @@ public class Reclamo {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Lob
     private String comentario;
     private LocalDateTime fecha;
 }
