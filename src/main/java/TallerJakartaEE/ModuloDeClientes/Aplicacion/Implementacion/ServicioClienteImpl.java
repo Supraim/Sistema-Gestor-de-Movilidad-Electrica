@@ -44,9 +44,13 @@ public class ServicioClienteImpl implements ServicioCliente {
         return repositorio.findAll();
     }
 
+    public Cliente obtenerUnCliente(Long id){ return repositorio.findById(id);}
+
     @Override
     @Transactional
     public void realizarReclamo(Reclamo reclamo) {
-        // TODO: falta implementar
+        log.info("Registrando reclamo: " + reclamo.getId());
+        repositorio.saveReclamo(reclamo);
+        repositorio.update(reclamo.getCliente());
     }
 }

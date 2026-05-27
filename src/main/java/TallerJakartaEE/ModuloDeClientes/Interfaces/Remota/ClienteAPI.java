@@ -12,6 +12,8 @@ import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @ApplicationScoped
@@ -47,6 +49,31 @@ public class ClienteAPI {
         }
     }
 
+    // curl -X POST http://localhost:8080/movilidad-electrica/api/cliente/registrarReclamo \
+    //   -H "Content-Type: application/json" \
+    //   -d '{"comentario":"El cobre que me vendieron es una caca","idCliente":"1"}'
+    @POST
+    @Path("/registrarReclamo")
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response registrarReclamo(ReclamoRegistroDTO dtoRec){
+        try{
+            //Cliente cliente
+            LocalDateTime fecha = LocalDateTime.now();
+            Cliente cliente = servicioCliente.obtenerUnCliente(dtoRec.idCliente);
+            Reclamo reclamo = new Reclamo(dtoRec.comentario, fecha, cliente);
+
+            cliente.registrarReclamo(reclamo);
+
+            servicioCliente.realizarReclamo(reclamo);
+
+            return Response.ok("Reclamo registrado correctamente").build();
+
+        }catch (IllegalArgumentException e){
+            return Response.status(Response.Status.BAD_REQUEST).entity(e.getMessage()).build();
+        }
+    }
+
     // curl http://localhost:8080/movilidad-electrica/api/cliente/todos
     @GET
     @Path("/todos")
@@ -65,5 +92,10 @@ public class ClienteAPI {
         public boolean esProfesional;
         public String tipoProfesion;      // "TAXI", "UBER", "CABIFY"
         public float porcentajeDescuento;
+    }
+
+    public static class ReclamoRegistroDTO{
+        public String comentario;
+        public Long idCliente;
     }
 }

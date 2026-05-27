@@ -1,9 +1,13 @@
 package TallerJakartaEE.ModuloDeClientes.Dominio;
 
+import jakarta.json.bind.annotation.JsonbTransient;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Data
 @AllArgsConstructor
@@ -20,4 +24,12 @@ public abstract class Cliente {
     protected String nombreCompleto;
     protected String telefono;
     protected String contra;
+
+    @OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonbTransient
+    protected List<Reclamo> reclamos = new ArrayList<>();
+
+    public void registrarReclamo(Reclamo reclamo){
+        reclamos.add(reclamo);
+    }
 }

@@ -19,4 +19,14 @@ public class Reclamo {
     @Lob
     private String comentario;
     private LocalDateTime fecha;
+
+    @ManyToOne
+    @JoinColumn(name = "cliente_id")
+    private Cliente cliente;
+
+    public Reclamo(String comentario, LocalDateTime fecha, Cliente cliente){
+        this.comentario = comentario;
+        this.fecha = fecha;
+        this.cliente = cliente;
+    }
 }

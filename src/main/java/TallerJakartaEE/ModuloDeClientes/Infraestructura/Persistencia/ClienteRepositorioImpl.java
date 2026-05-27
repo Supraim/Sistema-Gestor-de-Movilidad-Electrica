@@ -50,6 +50,10 @@ public class ClienteRepositorioImpl implements ClienteRepositorio {
 
     @Override
     public void saveReclamo(Reclamo reclamo){
-        
+        try{
+            em.persist(reclamo);
+        }finally{
+            em.close();
+        }
     }
 }

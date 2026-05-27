@@ -11,4 +11,5 @@ public interface ServicioCliente {
     public void altaMedioPago(Cliente cliente, MedioDePago medioPago);
     public List<Cliente> obtenerClientes();
     public void realizarReclamo(Reclamo reclamo);
+    public Cliente obtenerUnCliente(Long id);
 }
