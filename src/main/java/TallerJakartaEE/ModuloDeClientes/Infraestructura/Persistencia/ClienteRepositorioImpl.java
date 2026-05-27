@@ -47,4 +47,9 @@ public class ClienteRepositorioImpl implements ClienteRepositorio {
     public void update(Cliente cliente) {
         em.merge(cliente);
     }
+
+    @Override
+    public void saveReclamo(Reclamo reclamo){
+        
+    }
 }
