@@ -44,13 +44,18 @@ public class ServicioClienteImpl implements ServicioCliente {
         return repositorio.findAll();
     }
 
-    public Cliente obtenerUnCliente(Long id){ return repositorio.findById(id);}
-
     @Override
     @Transactional
-    public void realizarReclamo(Reclamo reclamo) {
-        log.info("Registrando reclamo: " + reclamo.getId());
+    public void realizarReclamo(Long clienteId, String comentario) {
+        Cliente cliente = repositorio.findById(clienteId);
+        if (cliente == null) {
+            throw new IllegalArgumentException("No existe un cliente con el ID: " + clienteId);
+        }
+
+        Reclamo reclamo = new Reclamo(comentario, LocalDateTime.now(), cliente);
+        cliente.registrarReclamo(reclamo);
+
+        log.info("Registrando reclamo para cliente: " + cliente.getNombreCompleto());
         repositorio.saveReclamo(reclamo);
-        repositorio.update(reclamo.getCliente());
     }
 }

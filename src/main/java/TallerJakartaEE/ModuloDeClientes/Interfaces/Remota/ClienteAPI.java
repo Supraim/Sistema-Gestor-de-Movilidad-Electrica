@@ -5,15 +5,12 @@ import TallerJakartaEE.ModuloDeClientes.Dominio.Cliente;
 import TallerJakartaEE.ModuloDeClientes.Dominio.ClienteComun;
 import TallerJakartaEE.ModuloDeClientes.Dominio.ClienteProfesional;
 import TallerJakartaEE.ModuloDeClientes.Dominio.TipoProfesion;
-import TallerJakartaEE.ModuloDeClientes.Dominio.Reclamo;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.List;
 
 @ApplicationScoped
@@ -58,17 +55,8 @@ public class ClienteAPI {
     @Produces(MediaType.APPLICATION_JSON)
     public Response registrarReclamo(ReclamoRegistroDTO dtoRec){
         try{
-            //Cliente cliente
-            LocalDateTime fecha = LocalDateTime.now();
-            Cliente cliente = servicioCliente.obtenerUnCliente(dtoRec.idCliente);
-            Reclamo reclamo = new Reclamo(dtoRec.comentario, fecha, cliente);
-
-            cliente.registrarReclamo(reclamo);
-
-            servicioCliente.realizarReclamo(reclamo);
-
+            servicioCliente.realizarReclamo(dtoRec.idCliente, dtoRec.comentario);
             return Response.ok("Reclamo registrado correctamente").build();
-
         }catch (IllegalArgumentException e){
             return Response.status(Response.Status.BAD_REQUEST).entity(e.getMessage()).build();
         }
