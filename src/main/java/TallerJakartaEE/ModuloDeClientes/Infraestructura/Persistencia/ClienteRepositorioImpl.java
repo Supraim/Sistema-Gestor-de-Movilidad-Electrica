@@ -1,6 +1,7 @@
 package TallerJakartaEE.ModuloDeClientes.Infraestructura.Persistencia;
 
 import TallerJakartaEE.ModuloDeClientes.Dominio.Cliente;
+import TallerJakartaEE.ModuloDeClientes.Dominio.MedioDePago;
 import TallerJakartaEE.ModuloDeClientes.Dominio.Reclamo;
 import TallerJakartaEE.ModuloDeClientes.Dominio.Repositorio.ClienteRepositorio;
 import jakarta.enterprise.context.ApplicationScoped;
@@ -51,5 +52,10 @@ public class ClienteRepositorioImpl implements ClienteRepositorio {
     @Override
     public void saveReclamo(Reclamo reclamo){
         em.persist(reclamo);
+    }
+
+    @Override
+    public void asociarMedioDePago(MedioDePago medioDePago){
+        em.persist(medioDePago);
     }
 }

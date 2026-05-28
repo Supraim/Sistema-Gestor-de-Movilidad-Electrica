@@ -6,11 +6,10 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
-@Entity
+@Entity(name = "clientes_medio_pago")
 @Table(name = "clientes_medio_pago")
-public abstract class MedioDePago {
+public class MedioDePago {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -21,4 +20,9 @@ public abstract class MedioDePago {
     @ManyToOne
     @JoinColumn(name = "cliente_id", referencedColumnName = "id")
     private Cliente cliente;
+
+    public MedioDePago(TipoMedioDePago tipo, Cliente cliente) {
+        this.tipo = tipo;
+        this.cliente = cliente;
+    }
 }

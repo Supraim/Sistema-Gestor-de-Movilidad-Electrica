@@ -2,9 +2,10 @@ package TallerJakartaEE.ModuloDeClientes.Aplicacion.Implementacion;
 
 import TallerJakartaEE.ModuloDeClientes.Aplicacion.Interfaz.ServicioCliente;
 import TallerJakartaEE.ModuloDeClientes.Dominio.Cliente;
+import TallerJakartaEE.ModuloDeClientes.Dominio.MedioDePago;
 import TallerJakartaEE.ModuloDeClientes.Dominio.Reclamo;
 import TallerJakartaEE.ModuloDeClientes.Dominio.Repositorio.ClienteRepositorio;
-import TallerJakartaEE.ModuloDePagos.Dominio.MedioDePago;
+import TallerJakartaEE.ModuloDeClientes.Dominio.TipoMedioDePago;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
@@ -34,8 +35,21 @@ public class ServicioClienteImpl implements ServicioCliente {
 
     @Override
     @Transactional
-    public void altaMedioPago(Cliente cliente, MedioDePago medioPago) {
-        // TODO: falta implementar asociar medio de pago al cliente
+    public void altaMedioPago(Long clienteId, TipoMedioDePago tipo) {
+        // Falta implementar la parte de asociar el medio de pago en el Modulo de Pagos, en dicha tabla
+        // esto lo haremos a traves de eventos.
+        // Actualmente registramos y asociamos un medio de pago con el cliente, pero no tenemos guardada
+        // la informacion de dicho de medio de pago en la tabla correspondiente del Modulo de Pagos
+        // ya sea CUENTA_UTE o TARJETA.
+        Cliente cliente = repositorio.findById(clienteId);
+
+        if (cliente == null) {
+            throw new IllegalArgumentException("No existe un cliente con el ID: " + clienteId);
+        }
+        MedioDePago medioDePago = new MedioDePago(tipo, cliente);
+
+        repositorio.asociarMedioDePago(medioDePago);
+
         log.info("Alta medio de pago para cliente: " + cliente.getCedula());
     }
 

@@ -5,6 +5,7 @@ import TallerJakartaEE.ModuloDeClientes.Dominio.Cliente;
 import TallerJakartaEE.ModuloDeClientes.Dominio.ClienteComun;
 import TallerJakartaEE.ModuloDeClientes.Dominio.ClienteProfesional;
 import TallerJakartaEE.ModuloDeClientes.Dominio.TipoProfesion;
+import TallerJakartaEE.ModuloDeClientes.Dominio.TipoMedioDePago;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.*;
@@ -71,6 +72,23 @@ public class ClienteAPI {
         return Response.ok(clientes).build();
     }
 
+    // curl -X POST http://localhost:8080/movilidad-electrica/api/cliente/altaMedioPago \
+    //   -H "Content-Type: application/json" \
+    //   -d '{"idCliente":1,"tipo":"TARJETA"}'
+    @POST
+    @Path("/altaMedioPago")
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response altaMedioPago(MedioPagoDTO dto) {
+        try {
+            TipoMedioDePago tipo = TipoMedioDePago.valueOf(dto.tipo);
+            servicioCliente.altaMedioPago(dto.idCliente, tipo);
+            return Response.ok("Medio de pago registrado correctamente").build();
+        } catch (IllegalArgumentException e) {
+            return Response.status(Response.Status.BAD_REQUEST).entity(e.getMessage()).build();
+        }
+    }
+
     // DTO
     public static class ClienteRegistroDTO {
         public String cedula;
@@ -85,5 +103,10 @@ public class ClienteAPI {
     public static class ReclamoRegistroDTO{
         public String comentario;
         public Long idCliente;
+    }
+
+    public static class MedioPagoDTO {
+        public Long idCliente;
+        public String tipo;  // "TARJETA", "FACTURA_UTE"
     }
 }
