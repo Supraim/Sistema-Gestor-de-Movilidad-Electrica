@@ -8,6 +8,12 @@ La documentación completa del proyecto se encuentra disponible en el siguiente 
 
 ---
 
+## Diagrama de Dominio
+
+![Diagrama de Dominio](docs/DiagramaDeDominio.png)
+
+---
+
 ## Pruebas de la API
 
 A continuación se presentan ejemplos de solicitudes `curl` para probar los distintos endpoints expuestos por la aplicación.
