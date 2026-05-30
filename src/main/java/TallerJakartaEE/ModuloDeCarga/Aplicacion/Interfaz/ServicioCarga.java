@@ -10,11 +10,11 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 public interface ServicioCarga {
-    public void iniciarCarga(Cliente cliente, MedioDePago medioDePago);
-    public Carga verCargaActual(Cliente cliente);
-    public List<Carga> verHistorico(Cliente cliente, LocalDateTime inicio, LocalDateTime fin);
-    public void finalizarCarga(Cargador cargador, Carga carga, LocalDateTime recargo);
-    public void altaEstacion(EstacionDeCarga estacion);
-    public void altaCargador(Cargador cargador);
-    public List<EstacionDeCarga> obtenerEstaciones();
+    void iniciarCarga(Cliente cliente, MedioDePago medioDePago);
+    Carga verCargaActual(Cliente cliente);
+    List<Carga> verHistorico(Cliente cliente, LocalDateTime inicio, LocalDateTime fin);
+    void finalizarCarga(Cargador cargador, Carga carga, LocalDateTime recargo);
+    void altaEstacion(EstacionDeCarga estacion);
+    void altaCargador(Cargador cargador);
+    List<EstacionDeCarga> obtenerEstaciones();
 }
