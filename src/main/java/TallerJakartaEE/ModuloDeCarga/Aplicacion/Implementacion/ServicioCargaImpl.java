@@ -19,7 +19,7 @@ import java.util.logging.Logger;
 
 @ApplicationScoped
 public class ServicioCargaImpl implements ServicioCarga {
-    private static final Logger log = Logger.getLogger(ServicioClienteImpl.class.getName());
+    private static final Logger log = Logger.getLogger(ServicioCargaImpl.class.getName());
 
     @Inject
     private CargaRepositorio repositorio;
