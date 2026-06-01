@@ -19,7 +19,10 @@ public class EstacionDeCarga {
 
     @Lob
     private String descripcion;
+
+    @Lob
     private String calle;
+
     private String departamento;
     private double longitud;
     private double latitud;
