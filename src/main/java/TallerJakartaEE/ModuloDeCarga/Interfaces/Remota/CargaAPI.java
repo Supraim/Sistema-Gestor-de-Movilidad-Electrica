@@ -1,15 +1,10 @@
 package TallerJakartaEE.ModuloDeCarga.Interfaces.Remota;
 
 import TallerJakartaEE.ModuloDeCarga.Aplicacion.Interfaz.ServicioCarga;
-import TallerJakartaEE.ModuloDeCarga.Dominio.EstacionDeCarga;
+import TallerJakartaEE.ModuloDeCarga.Dominio.*;
 import TallerJakartaEE.ModuloDeClientes.Dominio.Cliente;
-import TallerJakartaEE.ModuloDeClientes.Dominio.ClienteComun;
-import TallerJakartaEE.ModuloDeClientes.Dominio.ClienteProfesional;
-import TallerJakartaEE.ModuloDeClientes.Dominio.TipoProfesion;
-import TallerJakartaEE.ModuloDeClientes.Interfaces.Remota.ClienteAPI;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
-import jakarta.validation.constraints.Null;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.POST;
 import jakarta.ws.rs.Path;
@@ -31,7 +26,7 @@ public class CargaAPI {
     @Path("/registrarEstacion")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Response registrarEstacion(CargaRegistroDTO dtoEstacion){
+    public Response registrarEstacion(EstacionRegistroDTO dtoEstacion){
         try{
             EstacionDeCarga estacion;
             estacion = new EstacionDeCarga(null, dtoEstacion.descripcion, dtoEstacion.calle, dtoEstacion.departamento, dtoEstacion.longitud, dtoEstacion.latitud, null);
@@ -42,12 +37,45 @@ public class CargaAPI {
         }
     }
 
+    // curl -X POST http://localhost:8080/movilidad-electrica/api/carga/registrarCargador \
+    //   -H "Content-Type: application/json" \
+    //   -d '{"tipoCargador":"TIPO1","tieneCable":true,"tipoConector":"RAPIDA","estadoCargador":"DISPONIBLE","potenciaMinima":96,"estacionCargador":1}'
+    // FALTA POR TERMINAR / HAY ALGO QUE NO FUNCA MAS ALLA DE LA VERIFICACION INCOMPLETA
+    @POST
+    @Path("/registrarCargador")
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response registrarCargador(CargadorRegistroDTO dtoCargador){
+        try{
+            Cargador cargador;
+            cargador = new Cargador(null, dtoCargador.tipoCargador, dtoCargador.tieneCable, dtoCargador.tipoConector, dtoCargador.estadoCargador, dtoCargador.potenciaMinima, dtoCargador.estacionCargador);
+            /*if (dtoCargador.estacionCargador != existente){
+                FALTA TERMINAR LA COMPROBACIÓN DE SI EXISTE LA ESTACIÓN CON EL ID QUE SE LE PASA ***************************************************************************************************
+                return Response.ok("No se ha podido registrar el Cargador: La estación que ingresó no existe").build();
+            }else{*/
+                servicioCarga.altaCargador(cargador);
+                return Response.ok("Cargador registrado correctamente").build();
+            /*}*/
+        }catch (IllegalArgumentException e){
+            return Response.status(Response.Status.BAD_REQUEST).entity(e.getMessage()).build();
+        }
+    }
+
     // DTO
-    public static class CargaRegistroDTO {
+    public static class EstacionRegistroDTO {
         public String descripcion;
         public String calle;
         public String departamento;
         public int longitud;
         public int latitud;
+    }
+
+    public static class CargadorRegistroDTO {
+        public TipoCargador tipoCargador; // "TIPO1", "TIPO2"
+        public boolean tieneCable;
+        public TipoConector tipoConector; // "NORMAL", "RAPIDA"
+        public EstadoCargador estadoCargador; // "EN_USO", "DISPONIBLE", "MANTENIMIENTO", "FUERA_DE_SERVICIO"
+        public int potenciaMinima;
+        public EstacionDeCarga estacionCargador;
     }
 }
