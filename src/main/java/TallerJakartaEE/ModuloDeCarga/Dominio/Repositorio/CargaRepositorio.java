@@ -7,4 +7,5 @@ public interface CargaRepositorio {
 
     void save(Cargador cargador);
     void save(EstacionDeCarga estacion);
+    EstacionDeCarga findByIdEstacion(Long id);
 }

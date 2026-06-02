@@ -62,4 +62,9 @@ public class ServicioCargaImpl implements ServicioCarga {
     public List<EstacionDeCarga> obtenerEstaciones() {
         return null;
     }
+
+    @Override
+    public EstacionDeCarga findByIdEstacion(Long id){
+        return repositorio.findByIdEstacion(id);
+    }
 }

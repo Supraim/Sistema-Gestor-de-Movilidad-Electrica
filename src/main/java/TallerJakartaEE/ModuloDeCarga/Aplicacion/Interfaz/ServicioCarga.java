@@ -17,4 +17,5 @@ public interface ServicioCarga {
     void altaEstacion(EstacionDeCarga estacion);
     void altaCargador(Cargador cargador);
     List<EstacionDeCarga> obtenerEstaciones();
+    EstacionDeCarga findByIdEstacion(Long id);
 }

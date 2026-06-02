@@ -47,15 +47,30 @@ public class CargaAPI {
     @Produces(MediaType.APPLICATION_JSON)
     public Response registrarCargador(CargadorRegistroDTO dtoCargador){
         try{
+
+            TipoCargador tipoCar = null;
+            TipoConector tipoCon = null;
+            EstacionDeCarga estacionCarga = servicioCarga.findByIdEstacion(dtoCargador.estacionCargador);
+            if("TIPO1".equals(dtoCargador.tipoCargador.toString())){
+                tipoCar = TipoCargador.TIPO1;
+            }else if("TIPO2".equals(dtoCargador.tipoCargador.toString())){
+                tipoCar = TipoCargador.TIPO2;
+            }
+            if("NORMAL".equals(dtoCargador.tipoConector.toString())){
+                tipoCon = TipoConector.NORMAL;
+            }else if("RAPIDA".equals(dtoCargador.tipoConector.toString())){
+                tipoCon = TipoConector.RAPIDA;
+            }
+
             Cargador cargador;
-            cargador = new Cargador(null, dtoCargador.tipoCargador, dtoCargador.tieneCable, dtoCargador.tipoConector, dtoCargador.estadoCargador, dtoCargador.potenciaMinima, dtoCargador.estacionCargador);
-            /*if (dtoCargador.estacionCargador != existente){
-                FALTA TERMINAR LA COMPROBACIÓN DE SI EXISTE LA ESTACIÓN CON EL ID QUE SE LE PASA ***************************************************************************************************
+            cargador = new Cargador(null, tipoCar, dtoCargador.tieneCable, tipoCon, EstadoCargador.DISPONIBLE, dtoCargador.potenciaMinima, estacionCarga);
+            if (servicioCarga.findByIdEstacion(dtoCargador.estacionCargador) == null){
+                //FALTA TERMINAR LA COMPROBACIÓN DE SI EXISTE LA ESTACIÓN CON EL ID QUE SE LE PASA ***************************************************************************************************
                 return Response.ok("No se ha podido registrar el Cargador: La estación que ingresó no existe").build();
-            }else{*/
+            }else{
                 servicioCarga.altaCargador(cargador);
                 return Response.ok("Cargador registrado correctamente").build();
-            /*}*/
+            }
         }catch (IllegalArgumentException e){
             return Response.status(Response.Status.BAD_REQUEST).entity(e.getMessage()).build();
         }
@@ -76,6 +91,6 @@ public class CargaAPI {
         public TipoConector tipoConector; // "NORMAL", "RAPIDA"
         public EstadoCargador estadoCargador; // "EN_USO", "DISPONIBLE", "MANTENIMIENTO", "FUERA_DE_SERVICIO"
         public int potenciaMinima;
-        public EstacionDeCarga estacionCargador;
+        public Long estacionCargador;
     }
 }

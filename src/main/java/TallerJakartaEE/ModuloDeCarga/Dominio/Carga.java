@@ -17,6 +17,7 @@ public class Carga {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
+    private Long idCliente;
     private Date fecha;
     private LocalDateTime horaInicio;
     private LocalDateTime horaFin;
