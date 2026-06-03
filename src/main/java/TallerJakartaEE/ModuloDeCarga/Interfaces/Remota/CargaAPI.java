@@ -8,7 +8,9 @@ import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 @ApplicationScoped
@@ -86,17 +88,33 @@ public class CargaAPI {
         return Response.ok(estaciones).build();
     }
 
-    // curl http://localhost:8080/movilidad-electrica/api/carga/verHistoricoDeCargas?idCliente=1&fechaInicio="2019-07-15"&fechaFin="2022-09-21"
-    //FALTA POR TERMINAR (ALGO NO FUNCA) ********************************************************************
+    // curl "http://localhost:8080/movilidad-electrica/api/carga/verHistoricoDeCargas?idCliente=1&fechaInicio=2019-07-15 09:19:59&fechaFin=2028-09-21 12:10:11"
+    // PARA QUE FUNQUE UN CURL CON AND SE TIENE QUE ENCERRAR TODA LA URL EN ""
     @GET
     @Path("/verHistoricoDeCargas")
     @Produces(MediaType.APPLICATION_JSON)
     public Response verHistoricoDeCargas(
             @QueryParam("idCliente") Long idCliente,
-            @QueryParam("fechaInicio") LocalDateTime fechaInicio,
-            @QueryParam("fechaFin") LocalDateTime fechaFin){
+            @QueryParam("fechaInicio") String fechaInicio,
+            @QueryParam("fechaFin") String fechaFin){
 
-        List<Carga> cargasCliente = servicioCarga.verHistorico(idCliente, fechaInicio, fechaFin);
+        System.out.println("---------------------------------------------------------------------");
+
+        System.out.println(idCliente);
+        System.out.println("///////////////////////////////////////////////////////////////////////////");
+
+        System.out.println(fechaInicio);
+        System.out.println("///////////////////////////////////////////////////////////////////////////");
+
+        System.out.println(fechaFin);
+        System.out.println("---------------------------------------------------------------------");
+        DateTimeFormatter formatter =
+                DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+
+        LocalDateTime fInicio = LocalDateTime.parse(fechaInicio, formatter);
+        LocalDateTime fFin = LocalDateTime.parse(fechaFin, formatter);
+
+        List<Carga> cargasCliente = servicioCarga.verHistorico(idCliente, fInicio, fFin);
         return Response.ok(cargasCliente).build();
     }
 
