@@ -33,9 +33,6 @@ public class CargaRepositorioImpl implements CargaRepositorio {
         return em.find(EstacionDeCarga.class, id);
     }
 
-
-    //No tenemos enlazado carga con el cliente que la realiza,
-    //agregar campo idCliente y esta query funciona
     public List<Carga> verHistorico(Long idCliente, LocalDateTime fechaIni, LocalDateTime fechaFin){
         try {
             return em.createQuery("SELECT c FROM Carga c WHERE c.idCliente = :idCliente AND c.horaInicio >= :fechaIni AND c.horaFin <= :fechaFin", Carga.class)
@@ -57,7 +54,6 @@ public class CargaRepositorioImpl implements CargaRepositorio {
             return null;
         }
     }
-
 
 
 }

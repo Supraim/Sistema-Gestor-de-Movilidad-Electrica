@@ -2,13 +2,13 @@ package TallerJakartaEE.ModuloDeCarga.Interfaces.Remota;
 
 import TallerJakartaEE.ModuloDeCarga.Aplicacion.Interfaz.ServicioCarga;
 import TallerJakartaEE.ModuloDeCarga.Dominio.*;
-import TallerJakartaEE.ModuloDeClientes.Dominio.Cliente;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @ApplicationScoped
@@ -86,6 +86,20 @@ public class CargaAPI {
         return Response.ok(estaciones).build();
     }
 
+    // curl http://localhost:8080/movilidad-electrica/api/carga/verHistoricoDeCargas?idCliente=1&fechaInicio="2019-07-15"&fechaFin="2022-09-21"
+    //FALTA POR TERMINAR (ALGO NO FUNCA) ********************************************************************
+    @GET
+    @Path("/verHistoricoDeCargas")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response verHistoricoDeCargas(
+            @QueryParam("idCliente") Long idCliente,
+            @QueryParam("fechaInicio") LocalDateTime fechaInicio,
+            @QueryParam("fechaFin") LocalDateTime fechaFin){
+
+        List<Carga> cargasCliente = servicioCarga.verHistorico(idCliente, fechaInicio, fechaFin);
+        return Response.ok(cargasCliente).build();
+    }
+
     // DTO
     public static class EstacionRegistroDTO {
         public String descripcion;
@@ -103,4 +117,11 @@ public class CargaAPI {
         public int potenciaMinima;
         public Long estacionCargador;
     }
+/*
+    public static class ListaDeCargas {
+        public String idCliente;
+        public LocalDateTime fechaInicio;
+        public LocalDateTime fechaFin;
+    }
+ */
 }

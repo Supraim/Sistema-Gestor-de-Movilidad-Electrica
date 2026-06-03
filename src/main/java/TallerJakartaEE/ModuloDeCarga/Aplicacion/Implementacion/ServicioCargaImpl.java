@@ -34,8 +34,8 @@ public class ServicioCargaImpl implements ServicioCarga {
     }
 
     @Override
-    public List<Carga> verHistorico(Cliente cliente, LocalDateTime inicio, LocalDateTime fin) {
-        return null;
+    public List<Carga> verHistorico(Long idCliente, LocalDateTime inicio, LocalDateTime fin) {
+        return repositorio.verHistorico(idCliente, inicio, fin);
     }
 
     @Override
