@@ -54,11 +54,15 @@ public class CargaAPI {
                 tipoCar = TipoCargador.TIPO1;
             }else if("TIPO2".equals(dtoCargador.tipoCargador.toString())){
                 tipoCar = TipoCargador.TIPO2;
+            }else{
+                return Response.ok("El tipo de cargador ingresado no existe").build();
             }
             if("NORMAL".equals(dtoCargador.tipoConector.toString())){
                 tipoCon = TipoConector.NORMAL;
             }else if("RAPIDA".equals(dtoCargador.tipoConector.toString())){
                 tipoCon = TipoConector.RAPIDA;
+            }else{
+                return Response.ok("El tipo de conector ingresado no existe").build();
             }
 
             Cargador cargador;
