@@ -5,12 +5,11 @@ import TallerJakartaEE.ModuloDeCarga.Dominio.*;
 import TallerJakartaEE.ModuloDeClientes.Dominio.Cliente;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
-import jakarta.ws.rs.Consumes;
-import jakarta.ws.rs.POST;
-import jakarta.ws.rs.Path;
-import jakarta.ws.rs.Produces;
+import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
+
+import java.util.List;
 
 @ApplicationScoped
 @Path("/carga")
@@ -76,6 +75,15 @@ public class CargaAPI {
         }catch (IllegalArgumentException e){
             return Response.status(Response.Status.BAD_REQUEST).entity(e.getMessage()).build();
         }
+    }
+
+    // curl http://localhost:8080/movilidad-electrica/api/carga/todos
+    @GET
+    @Path("/todos")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response obtenerEstaciones(){
+        List<EstacionDeCarga> estaciones = servicioCarga.obtenerEstaciones();
+        return Response.ok(estaciones).build();
     }
 
     // DTO
