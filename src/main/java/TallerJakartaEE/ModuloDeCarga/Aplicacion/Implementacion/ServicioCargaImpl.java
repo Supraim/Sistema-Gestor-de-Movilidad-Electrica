@@ -34,8 +34,8 @@ public class ServicioCargaImpl implements ServicioCarga {
     }
 
     @Override
-    public List<Carga> verHistorico(Cliente cliente, LocalDateTime inicio, LocalDateTime fin) {
-        return null;
+    public List<Carga> verHistorico(Long idCliente, LocalDateTime inicio, LocalDateTime fin) {
+        return repositorio.verHistorico(idCliente, inicio, fin);
     }
 
     @Override
@@ -60,6 +60,16 @@ public class ServicioCargaImpl implements ServicioCarga {
 
     @Override
     public List<EstacionDeCarga> obtenerEstaciones() {
-        return null;
+        List<EstacionDeCarga> estCarga = repositorio.findAll();
+        log.info("Obteniendo estaciones \n Lista de estaciones: \n");
+        for (EstacionDeCarga i: estCarga){
+            log.info(i.getId().toString() + "\n");
+        }
+        return repositorio.findAll();
+    }
+
+    @Override
+    public EstacionDeCarga findByIdEstacion(Long id){
+        return repositorio.findByIdEstacion(id);
     }
 }
