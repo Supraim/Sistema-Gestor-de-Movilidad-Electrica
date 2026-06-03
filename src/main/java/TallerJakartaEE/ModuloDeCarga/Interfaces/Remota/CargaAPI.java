@@ -40,7 +40,6 @@ public class CargaAPI {
     // curl -X POST http://localhost:8080/movilidad-electrica/api/carga/registrarCargador \
     //   -H "Content-Type: application/json" \
     //   -d '{"tipoCargador":"TIPO1","tieneCable":true,"tipoConector":"RAPIDA","estadoCargador":"DISPONIBLE","potenciaMinima":96,"estacionCargador":1}'
-    // FALTA POR TERMINAR / HAY ALGO QUE NO FUNCA MAS ALLA DE LA VERIFICACION INCOMPLETA
     @POST
     @Path("/registrarCargador")
     @Consumes(MediaType.APPLICATION_JSON)
@@ -65,7 +64,6 @@ public class CargaAPI {
             Cargador cargador;
             cargador = new Cargador(null, tipoCar, dtoCargador.tieneCable, tipoCon, EstadoCargador.DISPONIBLE, dtoCargador.potenciaMinima, estacionCarga);
             if (servicioCarga.findByIdEstacion(dtoCargador.estacionCargador) == null){
-                //FALTA TERMINAR LA COMPROBACIÓN DE SI EXISTE LA ESTACIÓN CON EL ID QUE SE LE PASA ***************************************************************************************************
                 return Response.ok("No se ha podido registrar el Cargador: La estación que ingresó no existe").build();
             }else{
                 servicioCarga.altaCargador(cargador);
