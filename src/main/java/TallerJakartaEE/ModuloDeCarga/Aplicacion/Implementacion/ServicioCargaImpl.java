@@ -49,8 +49,7 @@ public class ServicioCargaImpl implements ServicioCarga {
         // Crear la carga
         Carga carga = new Carga();
         carga.setCliente(cliente);
-        carga.setHoraInicio(LocalDateTime.now());
-        carga.setFecha(new java.util.Date());
+        carga.setFechaInicio(LocalDateTime.now());
         carga.setEstado(EstadoCarga.CARGANDO);
         carga.setPorcentajeAvance(0);
 

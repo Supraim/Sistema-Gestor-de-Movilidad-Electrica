@@ -42,7 +42,7 @@ public class CargaRepositorioImpl implements CargaRepositorio {
 
     public List<Carga> verHistorico(Long idCliente, LocalDateTime fechaIni, LocalDateTime fechaFin){
         try {
-            return em.createQuery("SELECT c FROM Carga c WHERE c.cliente.id = :idCliente AND c.horaInicio >= :fechaIni AND (c.horaFin <= :fechaFin OR c.horaFin IS NULL)", Carga.class)
+            return em.createQuery("SELECT c FROM Carga c WHERE c.cliente.id = :idCliente AND c.fechaInicio >= :fechaIni AND (c.fechaFin <= :fechaFin OR c.fechaFin IS NULL)", Carga.class)
                     .setParameter("idCliente", idCliente)
                     .setParameter("fechaIni", fechaIni)
                     .setParameter("fechaFin", fechaFin)
