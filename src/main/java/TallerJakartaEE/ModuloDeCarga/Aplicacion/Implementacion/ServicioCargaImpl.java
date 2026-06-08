@@ -5,7 +5,7 @@ import TallerJakartaEE.ModuloDeCarga.Dominio.Carga;
 import TallerJakartaEE.ModuloDeCarga.Dominio.Cargador;
 import TallerJakartaEE.ModuloDeCarga.Dominio.EstacionDeCarga;
 import TallerJakartaEE.ModuloDeCarga.Dominio.Repositorio.CargaRepositorio;
-import TallerJakartaEE.ModuloDeClientes.Dominio.Cliente;
+import TallerJakartaEE.ModuloDeCarga.Dominio.Cliente;
 import TallerJakartaEE.ModuloDePagos.Dominio.MedioDePago;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;

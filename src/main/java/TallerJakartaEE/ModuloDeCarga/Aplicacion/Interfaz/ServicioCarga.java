@@ -3,7 +3,7 @@ package TallerJakartaEE.ModuloDeCarga.Aplicacion.Interfaz;
 import TallerJakartaEE.ModuloDeCarga.Dominio.Carga;
 import TallerJakartaEE.ModuloDeCarga.Dominio.Cargador;
 import TallerJakartaEE.ModuloDeCarga.Dominio.EstacionDeCarga;
-import TallerJakartaEE.ModuloDeClientes.Dominio.Cliente;
+import TallerJakartaEE.ModuloDeCarga.Dominio.Cliente;
 import TallerJakartaEE.ModuloDePagos.Dominio.MedioDePago;
 
 import java.time.LocalDateTime;

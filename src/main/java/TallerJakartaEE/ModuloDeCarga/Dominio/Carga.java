@@ -17,7 +17,10 @@ public class Carga {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    private Long idCliente;
+    @ManyToOne
+    @JoinColumn(name = "cliente_id")
+    private Cliente cliente;
+
     private Date fecha;
     private LocalDateTime horaInicio;
     private LocalDateTime horaFin;
