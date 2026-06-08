@@ -91,23 +91,13 @@ public class CargaAPI {
     // curl "http://localhost:8080/movilidad-electrica/api/carga/verHistoricoDeCargas?idCliente=1&fechaInicio=2019-07-15 09:19:59&fechaFin=2028-09-21 12:10:11"
     // PARA QUE FUNQUE UN CURL CON AND SE TIENE QUE ENCERRAR TODA LA URL EN ""
     @GET
-    @Path("/verHistoricoDeCargas")
+    @Path("/mobil/verHistoricoDeCargas")
     @Produces(MediaType.APPLICATION_JSON)
     public Response verHistoricoDeCargas(
             @QueryParam("idCliente") Long idCliente,
             @QueryParam("fechaInicio") String fechaInicio,
             @QueryParam("fechaFin") String fechaFin){
 
-        System.out.println("---------------------------------------------------------------------");
-
-        System.out.println(idCliente);
-        System.out.println("///////////////////////////////////////////////////////////////////////////");
-
-        System.out.println(fechaInicio);
-        System.out.println("///////////////////////////////////////////////////////////////////////////");
-
-        System.out.println(fechaFin);
-        System.out.println("---------------------------------------------------------------------");
         DateTimeFormatter formatter =
                 DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 

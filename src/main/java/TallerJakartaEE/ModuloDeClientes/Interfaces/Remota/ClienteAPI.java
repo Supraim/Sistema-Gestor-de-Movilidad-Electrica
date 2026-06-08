@@ -21,11 +21,11 @@ public class ClienteAPI {
     @Inject
     private ServicioCliente servicioCliente;
 
-    // curl -X POST http://localhost:8080/movilidad-electrica/api/cliente/registrar \
+    // curl -X POST http://localhost:8080/movilidad-electrica/api/cliente/mobil/registrar \
     //   -H "Content-Type: application/json" \
     //   -d '{"cedula":"12345678","nombreCompleto":"Juan Perez","telefono":"099123456","contra":"pass123","esProfesional":false}'
     @POST
-    @Path("/registrar")
+    @Path("mobil/registrar")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     public Response registrarCliente(ClienteRegistroDTO dto) {
@@ -51,7 +51,7 @@ public class ClienteAPI {
     //   -H "Content-Type: application/json" \
     //   -d '{"comentario":"El cobre que me vendieron es una caca","idCliente":"1"}'
     @POST
-    @Path("/registrarReclamo")
+    @Path("mobil/registrarReclamo")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     public Response registrarReclamo(ReclamoRegistroDTO dtoRec){
@@ -76,7 +76,7 @@ public class ClienteAPI {
     //   -H "Content-Type: application/json" \
     //   -d '{"idCliente":1,"tipo":"TARJETA"}'
     @POST
-    @Path("/altaMedioPago")
+    @Path("mobil/altaMedioPago")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     public Response altaMedioPago(MedioPagoDTO dto) {
