@@ -107,6 +107,6 @@ public class ClienteAPI {
 
     public static class MedioPagoDTO {
         public Long idCliente;
-        public String tipo;  // "TARJETA", "FACTURA_UTE"
+        public String tipo;  // "TARJETA", "CUENTA_UTE"
     }
 }

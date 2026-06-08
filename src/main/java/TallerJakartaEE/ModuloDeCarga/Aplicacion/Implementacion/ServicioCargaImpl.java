@@ -4,9 +4,10 @@ import TallerJakartaEE.ModuloDeCarga.Aplicacion.Interfaz.ServicioCarga;
 import TallerJakartaEE.ModuloDeCarga.Dominio.Carga;
 import TallerJakartaEE.ModuloDeCarga.Dominio.Cargador;
 import TallerJakartaEE.ModuloDeCarga.Dominio.EstacionDeCarga;
+import TallerJakartaEE.ModuloDeCarga.Dominio.EstadoCarga;
+import TallerJakartaEE.ModuloDeCarga.Dominio.EstadoCargador;
 import TallerJakartaEE.ModuloDeCarga.Dominio.Repositorio.CargaRepositorio;
 import TallerJakartaEE.ModuloDeCarga.Dominio.Cliente;
-import TallerJakartaEE.ModuloDePagos.Dominio.MedioDePago;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
@@ -24,8 +25,43 @@ public class ServicioCargaImpl implements ServicioCarga {
 
     @Override
     @Transactional
-    public void iniciarCarga(Cliente cliente, MedioDePago medioDePago) {
+    public void iniciarCarga(Long idCliente, Long idCargador) {
+        Cliente cliente = repositorio.findClienteById(idCliente);
+        if (cliente == null) {
+            throw new IllegalArgumentException("No existe un cliente con el ID: " + idCliente);
+        }
 
+        if (cliente.getCargaActiva() != null) {
+            throw new IllegalArgumentException("El cliente ya tiene una carga activa");
+        }
+
+        Cargador cargador = repositorio.findById(idCargador);
+        if (cargador == null) {
+            throw new IllegalArgumentException("No existe un cargador con el ID: " + idCargador);
+        }
+
+        if (cargador.getEstado() != EstadoCargador.DISPONIBLE) {
+            throw new IllegalArgumentException("El cargador no está disponible");
+        }
+
+        // Crear la carga
+        Carga carga = new Carga();
+        carga.setCliente(cliente);
+        carga.setHoraInicio(LocalDateTime.now());
+        carga.setFecha(new java.util.Date());
+        carga.setEstado(EstadoCarga.CARGANDO);
+        carga.setPorcentajeAvance(0);
+
+        repositorio.save(carga);
+
+        // Asociar al cliente
+        cliente.iniciarCarga(carga);
+        repositorio.updateCliente(cliente);
+
+        // Marcar cargador en uso
+        cargador.setEstado(EstadoCargador.EN_USO);
+
+        log.info("Carga iniciada para cliente: " + cliente.getNombreCompleto() + " en cargador: " + idCargador);
     }
 
     @Override

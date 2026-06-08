@@ -2,6 +2,7 @@ package TallerJakartaEE.ModuloDeCarga.Infraestructura.Persistencia;
 
 import TallerJakartaEE.ModuloDeCarga.Dominio.Carga;
 import TallerJakartaEE.ModuloDeCarga.Dominio.Cargador;
+import TallerJakartaEE.ModuloDeCarga.Dominio.Cliente;
 import TallerJakartaEE.ModuloDeCarga.Dominio.EstacionDeCarga;
 import TallerJakartaEE.ModuloDeCarga.Dominio.Repositorio.CargaRepositorio;
 import jakarta.enterprise.context.ApplicationScoped;
@@ -22,7 +23,13 @@ public class CargaRepositorioImpl implements CargaRepositorio {
 
     public void save(EstacionDeCarga estacion){ em.persist(estacion); }
 
+    public void save(Carga carga){ em.persist(carga); }
+
     public Cargador findById(Long id){ return em.find(Cargador.class, id); }
+
+    public Cliente findClienteById(Long id){ return em.find(Cliente.class, id); }
+
+    public void updateCliente(Cliente cliente){ em.merge(cliente); }
 
     public List<EstacionDeCarga> findAll(){
         return em.createQuery("SELECT ec FROM EstacionDeCarga ec", EstacionDeCarga.class)
@@ -35,7 +42,7 @@ public class CargaRepositorioImpl implements CargaRepositorio {
 
     public List<Carga> verHistorico(Long idCliente, LocalDateTime fechaIni, LocalDateTime fechaFin){
         try {
-            return em.createQuery("SELECT c FROM Carga c WHERE c.cliente.id = :idCliente AND c.horaInicio >= :fechaIni AND c.horaFin <= :fechaFin", Carga.class)
+            return em.createQuery("SELECT c FROM Carga c WHERE c.cliente.id = :idCliente AND c.horaInicio >= :fechaIni AND (c.horaFin <= :fechaFin OR c.horaFin IS NULL)", Carga.class)
                     .setParameter("idCliente", idCliente)
                     .setParameter("fechaIni", fechaIni)
                     .setParameter("fechaFin", fechaFin)

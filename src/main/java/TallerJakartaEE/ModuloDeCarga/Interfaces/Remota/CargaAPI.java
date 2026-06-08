@@ -108,6 +108,22 @@ public class CargaAPI {
         return Response.ok(cargasCliente).build();
     }
 
+    // curl -X POST http://localhost:8080/movilidad-electrica/api/carga/mobil/iniciarCarga \
+    //   -H "Content-Type: application/json" \
+    //   -d '{"idCliente":1,"idCargador":1}'
+    @POST
+    @Path("/mobil/iniciarCarga")
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response iniciarCarga(IniciarCargaDTO dto) {
+        try {
+            servicioCarga.iniciarCarga(dto.idCliente, dto.idCargador);
+            return Response.ok("Carga iniciada correctamente").build();
+        } catch (IllegalArgumentException e) {
+            return Response.status(Response.Status.BAD_REQUEST).entity(e.getMessage()).build();
+        }
+    }
+
     // DTO
     public static class EstacionRegistroDTO {
         public String descripcion;
@@ -124,6 +140,11 @@ public class CargaAPI {
         public EstadoCargador estadoCargador; // "EN_USO", "DISPONIBLE", "MANTENIMIENTO", "FUERA_DE_SERVICIO"
         public int potenciaMinima;
         public Long estacionCargador;
+    }
+
+    public static class IniciarCargaDTO {
+        public Long idCliente;
+        public Long idCargador;
     }
 /*
     public static class ListaDeCargas {

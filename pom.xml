@@ -83,6 +83,18 @@
                 <configuration>
                     <version>${wildfly.version}</version>
                     <server-config>standalone-full.xml</server-config>
+                    <add-user>
+                        <users>
+                            <user>
+                                <username>mobil</username>
+                                <password>Mobil123!</password>
+                                <application-user>true</application-user>
+                                <groups>
+                                    <group>mobil</group>
+                                </groups>
+                            </user>
+                        </users>
+                    </add-user>
                     <scripts>
                         <script>config.cli</script>
                     </scripts>
