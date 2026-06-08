@@ -88,7 +88,7 @@ public class CargaAPI {
         return Response.ok(estaciones).build();
     }
 
-    // curl "http://localhost:8080/movilidad-electrica/api/carga/verHistoricoDeCargas?idCliente=1&fechaInicio=2019-07-15 09:19:59&fechaFin=2028-09-21 12:10:11"
+    // curl "http://localhost:8080/movilidad-electrica/api/carga/mobil/verHistoricoDeCargas?idCliente=1&fechaInicio=2019-07-15 09:19:59&fechaFin=2028-09-21 12:10:11"
     // PARA QUE FUNQUE UN CURL CON AND SE TIENE QUE ENCERRAR TODA LA URL EN ""
     @GET
     @Path("/mobil/verHistoricoDeCargas")

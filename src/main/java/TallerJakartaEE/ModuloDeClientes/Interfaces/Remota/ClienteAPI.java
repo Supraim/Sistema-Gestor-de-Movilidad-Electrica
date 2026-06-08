@@ -47,7 +47,7 @@ public class ClienteAPI {
         }
     }
 
-    // curl -X POST http://localhost:8080/movilidad-electrica/api/cliente/registrarReclamo \
+    // curl -X POST http://localhost:8080/movilidad-electrica/api/cliente/mobil/registrarReclamo \
     //   -H "Content-Type: application/json" \
     //   -d '{"comentario":"El cobre que me vendieron es una caca","idCliente":"1"}'
     @POST
@@ -72,7 +72,7 @@ public class ClienteAPI {
         return Response.ok(clientes).build();
     }
 
-    // curl -X POST http://localhost:8080/movilidad-electrica/api/cliente/altaMedioPago \
+    // curl -X POST http://localhost:8080/movilidad-electrica/api/cliente/mobil/altaMedioPago \
     //   -H "Content-Type: application/json" \
     //   -d '{"idCliente":1,"tipo":"TARJETA"}'
     @POST
