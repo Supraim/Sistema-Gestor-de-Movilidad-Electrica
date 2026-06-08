@@ -20,10 +20,9 @@ public class Carga {
     @ManyToOne
     @JoinColumn(name = "cliente_id")
     private Cliente cliente;
-
-    private Date fecha;
-    private LocalDateTime horaInicio;
-    private LocalDateTime horaFin;
+    
+    private LocalDateTime fechaInicio;
+    private LocalDateTime fechaFin;
     private float importeTotal;
     private float recargoPorDemora;
     private int porcentajeAvance;

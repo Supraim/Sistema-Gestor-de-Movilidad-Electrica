@@ -79,9 +79,9 @@ public class CargaAPI {
         }
     }
 
-    // curl http://localhost:8080/movilidad-electrica/api/carga/todos
+    // curl http://localhost:8080/movilidad-electrica/api/carga/obtenerEstaciones
     @GET
-    @Path("/todos")
+    @Path("/obtenerEstaciones")
     @Produces(MediaType.APPLICATION_JSON)
     public Response obtenerEstaciones(){
         List<EstacionDeCarga> estaciones = servicioCarga.obtenerEstaciones();
