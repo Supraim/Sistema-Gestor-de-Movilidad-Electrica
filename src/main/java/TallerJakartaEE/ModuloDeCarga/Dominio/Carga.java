@@ -22,10 +22,9 @@ public class Carga {
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
     private Cliente cliente;
-
-    private Date fecha;
-    private LocalDateTime horaInicio;
-    private LocalDateTime horaFin;
+    
+    private LocalDateTime fechaInicio;
+    private LocalDateTime fechaFin;
     private float importeTotal;
     private float recargoPorDemora;
     private int porcentajeAvance;

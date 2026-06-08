@@ -4,6 +4,8 @@ import TallerJakartaEE.ModuloDeCarga.Dominio.Carga;
 import TallerJakartaEE.ModuloDeCarga.Dominio.Cargador;
 import TallerJakartaEE.ModuloDeCarga.Dominio.EstacionDeCarga;
 import TallerJakartaEE.ModuloDeCarga.Dominio.Cliente;
+// El import de abajo eventualmente se cambiara por un import del modulo actual
+import TallerJakartaEE.ModuloDePagos.Dominio.MedioDePago;
 
 import java.time.LocalDateTime;
 import java.util.List;

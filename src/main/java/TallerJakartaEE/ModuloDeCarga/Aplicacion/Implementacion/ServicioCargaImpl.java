@@ -8,10 +8,12 @@ import TallerJakartaEE.ModuloDeCarga.Dominio.EstadoCarga;
 import TallerJakartaEE.ModuloDeCarga.Dominio.EstadoCargador;
 import TallerJakartaEE.ModuloDeCarga.Dominio.Repositorio.CargaRepositorio;
 import TallerJakartaEE.ModuloDeCarga.Dominio.Cliente;
+// El import de abajo eventualmente se cambiara por un import del modulo actual
+import TallerJakartaEE.ModuloDePagos.Dominio.MedioDePago;
+
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
-
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.logging.Logger;
