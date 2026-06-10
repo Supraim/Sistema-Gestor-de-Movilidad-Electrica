@@ -88,7 +88,7 @@ public class CargaAPI {
         return Response.ok(estaciones).build();
     }
 
-    // curl "http://localhost:8080/movilidad-electrica/api/carga/mobil/verHistoricoDeCargas?idCliente=1&fechaInicio=2019-07-15 09:19:59&fechaFin=2028-09-21 12:10:11"
+    // curl -u 'mobil:Mobil123!' "http://localhost:8080/movilidad-electrica/api/carga/mobil/verHistoricoDeCargas?idCliente=1&fechaInicio=2020-01-01%2000:00:00&fechaFin=2030-12-31%2023:59:59"
     // PARA QUE FUNQUE UN CURL CON AND SE TIENE QUE ENCERRAR TODA LA URL EN ""
     @GET
     @Path("/mobil/verHistoricoDeCargas")
@@ -140,14 +140,14 @@ public class CargaAPI {
         }
     }
 
-    // curl http://localhost:8080/movilidad-electrica/api/carga/mobil/verHistoricoDeCargas?idCliente=1
+    // curl http://localhost:8080/movilidad-electrica/api/carga/mobil/verCargaActual?idCliente=1
     @GET
     @Path("/mobil/verCargaActual")
     @Produces(MediaType.APPLICATION_JSON)
     public Response verCargaActual(@QueryParam("idCliente") Long idCliente){
         try {
-            servicioCarga.verCargaActual(idCliente);
-            return  Response.ok("Estado actual de la carga: \n").build();
+            Carga carga = servicioCarga.verCargaActual(idCliente);
+            return  Response.ok(carga).build();
         } catch (IllegalArgumentException e) {
             return Response.status(Response.Status.BAD_REQUEST).entity(e.getMessage()).build();
         }
