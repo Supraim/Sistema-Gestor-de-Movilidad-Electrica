@@ -67,8 +67,8 @@ public class ServicioCargaImpl implements ServicioCarga {
     }
 
     @Override
-    public Carga verCargaActual(Cliente cliente) {
-        return null;
+    public Carga verCargaActual(Long idCliente) {
+        return repositorio.verCargaActual(idCliente);
     }
 
     @Override

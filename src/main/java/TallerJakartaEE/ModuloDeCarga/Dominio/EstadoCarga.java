@@ -2,8 +2,7 @@ package TallerJakartaEE.ModuloDeCarga.Dominio;
 
 public enum EstadoCarga {
     CARGANDO(1),
-    COMPLETA(2),
-    EXCEDIDA(3);
+    COMPLETA(2);
 
     private final int id;
     EstadoCarga(int id) { this.id = id; }
@@ -13,7 +12,6 @@ public enum EstadoCarga {
         return switch (id) {
             case 1 -> CARGANDO;
             case 2 -> COMPLETA;
-            case 3 -> EXCEDIDA;
             default -> throw new IllegalArgumentException("Tipo de Estado de Carga no soportado.");
         };
     }

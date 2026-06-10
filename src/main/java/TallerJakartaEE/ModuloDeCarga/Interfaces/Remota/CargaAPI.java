@@ -140,6 +140,19 @@ public class CargaAPI {
         }
     }
 
+    // curl http://localhost:8080/movilidad-electrica/api/carga/mobil/verHistoricoDeCargas?idCliente=1
+    @GET
+    @Path("/mobil/verCargaActual")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response verCargaActual(@QueryParam("idCliente") Long idCliente){
+        try {
+            servicioCarga.verCargaActual(idCliente);
+            return  Response.ok("Estado actual de la carga: \n").build();
+        } catch (IllegalArgumentException e) {
+            return Response.status(Response.Status.BAD_REQUEST).entity(e.getMessage()).build();
+        }
+    }
+
     // DTO
     public static class EstacionRegistroDTO {
         public String descripcion;

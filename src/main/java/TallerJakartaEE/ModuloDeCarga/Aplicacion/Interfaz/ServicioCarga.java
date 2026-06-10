@@ -12,7 +12,7 @@ import java.util.List;
 
 public interface ServicioCarga {
     void iniciarCarga(Long idCliente, Long idCargador);
-    Carga verCargaActual(Cliente cliente);
+    Carga verCargaActual(Long idCliente);
     List<Carga> verHistorico(Long idCliente, LocalDateTime inicio, LocalDateTime fin);
     void finalizarCarga(Long idCargador, float consumo, float recargo);
     void altaEstacion(EstacionDeCarga estacion);
