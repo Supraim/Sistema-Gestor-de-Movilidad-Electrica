@@ -31,4 +31,8 @@ public class Carga {
 
     @Enumerated(EnumType.STRING)
     private EstadoCarga estado;
+
+    @ManyToOne
+    @JoinColumn(name = "cargador_id")
+    private Cargador cargador;
 }

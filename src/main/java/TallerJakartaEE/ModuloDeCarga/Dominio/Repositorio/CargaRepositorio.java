@@ -13,6 +13,7 @@ public interface CargaRepositorio {
     void save(Cargador cargador);
     void save(EstacionDeCarga estacion);
     void save(Carga carga);
+    void saveCliente(Cliente cliente);
     EstacionDeCarga findByIdEstacion(Long id);
     Cargador findById(Long id);
     Cliente findClienteById(Long id);
@@ -20,4 +21,5 @@ public interface CargaRepositorio {
     List<EstacionDeCarga> findAll();
     List<Carga> verHistorico(Long idCliente, LocalDateTime fechaIni, LocalDateTime fechaFin);
     Carga verCargaActual(Long idCliente);
+    Carga findCargaActivaPorCargador(Long idCargador);
 }

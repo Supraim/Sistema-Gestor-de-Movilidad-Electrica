@@ -52,6 +52,7 @@ public class ServicioCargaImpl implements ServicioCarga {
         carga.setFechaInicio(LocalDateTime.now());
         carga.setEstado(EstadoCarga.CARGANDO);
         carga.setPorcentajeAvance(0);
+        carga.setCargador(cargador);
 
         repositorio.save(carga);
 
@@ -77,8 +78,33 @@ public class ServicioCargaImpl implements ServicioCarga {
 
     @Override
     @Transactional
-    public void finalizarCarga(Cargador cargador, Carga carga, LocalDateTime recargo) {
+    public void finalizarCarga(Long idCargador, float consumo, float recargo) {
+        // Buscar la carga activa en este cargador
+        Carga carga = repositorio.findCargaActivaPorCargador(idCargador);
+        if (carga == null) {
+            throw new IllegalArgumentException("No hay carga activa en el cargador: " + idCargador);
+        }
 
+        // Finalizar la carga
+        carga.setFechaFin(LocalDateTime.now());
+        carga.setImporteTotal(consumo);
+        carga.setRecargoPorDemora(recargo);
+        carga.setEstado(EstadoCarga.COMPLETA);
+        carga.setPorcentajeAvance(100);
+
+        // Eliminar la carga activa del cliente
+        Cliente cliente = carga.getCliente();
+        cliente.finalizarCarga();
+        repositorio.updateCliente(cliente);
+
+        // Marcar el cargador como disponible
+        Cargador cargador = repositorio.findById(idCargador);
+        cargador.setEstado(EstadoCargador.DISPONIBLE);
+
+        log.info("Carga finalizada para cliente: " + cliente.getNombreCompleto()
+                + " | Consumo: " + consumo + " | Recargo: " + recargo);
+
+        // TODO: disparar evento hacia ModuloDePagos para cobrar la carga
     }
 
     @Override

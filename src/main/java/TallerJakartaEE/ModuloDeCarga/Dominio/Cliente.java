@@ -41,4 +41,8 @@ public class Cliente {
         this.cargaActiva = carga;
         this.historicoCargas.add(carga);
     }
+
+    public void finalizarCarga() {
+        this.cargaActiva = null;
+    }
 }

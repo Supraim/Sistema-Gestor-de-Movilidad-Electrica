@@ -14,7 +14,7 @@ public interface ServicioCarga {
     void iniciarCarga(Long idCliente, Long idCargador);
     Carga verCargaActual(Cliente cliente);
     List<Carga> verHistorico(Long idCliente, LocalDateTime inicio, LocalDateTime fin);
-    void finalizarCarga(Cargador cargador, Carga carga, LocalDateTime recargo);
+    void finalizarCarga(Long idCargador, float consumo, float recargo);
     void altaEstacion(EstacionDeCarga estacion);
     void altaCargador(Cargador cargador);
     List<EstacionDeCarga> obtenerEstaciones();

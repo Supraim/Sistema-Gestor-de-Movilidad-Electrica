@@ -6,6 +6,7 @@ import TallerJakartaEE.ModuloDeClientes.Dominio.MedioDePago;
 import TallerJakartaEE.ModuloDeClientes.Dominio.Reclamo;
 import TallerJakartaEE.ModuloDeClientes.Dominio.Repositorio.ClienteRepositorio;
 import TallerJakartaEE.ModuloDeClientes.Dominio.TipoMedioDePago;
+import TallerJakartaEE.ModuloDeClientes.Interfaces.Evento.Out.PublicadorEventoClientes;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
@@ -21,6 +22,9 @@ public class ServicioClienteImpl implements ServicioCliente {
     @Inject
     private ClienteRepositorio repositorio;
 
+    @Inject
+    private PublicadorEventoClientes publicadorEvento;
+
     @Override
     @Transactional
     public void registrarCliente(Cliente cliente) {
@@ -31,6 +35,9 @@ public class ServicioClienteImpl implements ServicioCliente {
 
         log.info("Registrando cliente: " + cliente.getNombreCompleto());
         repositorio.save(cliente);
+
+        // Publicar evento para que otros módulos registren al cliente en sus tablas
+        publicadorEvento.publicarClienteRegistrado(cliente);
     }
 
     @Override

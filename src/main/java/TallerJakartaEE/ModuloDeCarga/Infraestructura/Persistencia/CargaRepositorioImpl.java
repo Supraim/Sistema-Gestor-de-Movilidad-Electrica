@@ -25,6 +25,8 @@ public class CargaRepositorioImpl implements CargaRepositorio {
 
     public void save(Carga carga){ em.persist(carga); }
 
+    public void saveCliente(Cliente cliente){ em.persist(cliente); }
+
     public Cargador findById(Long id){ return em.find(Cargador.class, id); }
 
     public Cliente findClienteById(Long id){ return em.find(Cliente.class, id); }
@@ -62,5 +64,13 @@ public class CargaRepositorioImpl implements CargaRepositorio {
         }
     }
 
-
+    public Carga findCargaActivaPorCargador(Long idCargador){
+        try {
+            return em.createQuery("SELECT c FROM Carga c WHERE c.cargador.id = :idCargador AND c.estado = 'CARGANDO'", Carga.class)
+                    .setParameter("idCargador", idCargador)
+                    .getSingleResult();
+        }catch (NoResultException e){
+            return null;
+        }
+    }
 }

@@ -124,6 +124,22 @@ public class CargaAPI {
         }
     }
 
+    // curl -X POST http://localhost:8080/movilidad-electrica/api/carga/cargador/finalizarCarga \
+    //   -H "Content-Type: application/json" \
+    //   -d '{"idCargador":1,"consumo":150.5,"recargo":20.0}'
+    @POST
+    @Path("/cargador/finalizarCarga")
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response finalizarCarga(FinalizarCargaDTO dto) {
+        try {
+            servicioCarga.finalizarCarga(dto.idCargador, dto.consumo, dto.recargo);
+            return Response.ok("Carga finalizada correctamente").build();
+        } catch (IllegalArgumentException e) {
+            return Response.status(Response.Status.BAD_REQUEST).entity(e.getMessage()).build();
+        }
+    }
+
     // DTO
     public static class EstacionRegistroDTO {
         public String descripcion;
@@ -146,11 +162,10 @@ public class CargaAPI {
         public Long idCliente;
         public Long idCargador;
     }
-/*
-    public static class ListaDeCargas {
-        public String idCliente;
-        public LocalDateTime fechaInicio;
-        public LocalDateTime fechaFin;
+
+    public static class FinalizarCargaDTO {
+        public Long idCargador;
+        public float consumo;
+        public float recargo;
     }
- */
 }
