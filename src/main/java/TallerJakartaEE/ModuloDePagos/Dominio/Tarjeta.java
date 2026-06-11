@@ -1,7 +1,6 @@
 package TallerJakartaEE.ModuloDePagos.Dominio;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -16,5 +15,7 @@ public class Tarjeta extends MedioDePago {
     private String numero;
     private Date fechaVencimiento;
     private String digitoVerificador;
+
+    @Enumerated(EnumType.STRING)
     private TipoTarjeta tipo;
 }

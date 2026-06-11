@@ -42,20 +42,22 @@ public class ServicioClienteImpl implements ServicioCliente {
 
     @Override
     @Transactional
-    public void altaMedioPago(Long clienteId, TipoMedioDePago tipo) {
-        // Falta implementar la parte de asociar el medio de pago en el Modulo de Pagos, en dicha tabla
-        // esto lo haremos a traves de eventos.
-        // Actualmente registramos y asociamos un medio de pago con el cliente, pero no tenemos guardada
-        // la informacion de dicho de medio de pago en la tabla correspondiente del Modulo de Pagos
-        // ya sea CUENTA_UTE o TARJETA.
+    public void altaMedioPago(Long clienteId, TipoMedioDePago tipo, String numeroTarjeta,
+                              String fechaVencimiento, String digitoVerificador,
+                              String tipoTarjeta, String numeroCuenta) {
         Cliente cliente = repositorio.findById(clienteId);
 
         if (cliente == null) {
             throw new IllegalArgumentException("No existe un cliente con el ID: " + clienteId);
         }
-        MedioDePago medioDePago = new MedioDePago(tipo, cliente);
 
+        // Persiste en la tabla del módulo de Clientes
+        MedioDePago medioDePago = new MedioDePago(tipo, cliente);
         repositorio.asociarMedioDePago(medioDePago);
+
+        // Dispara evento hacia ModuloDePagos para que registre los datos completos
+        publicadorEvento.publicarMedioPagoRegistrado(clienteId, tipo.name(),
+                numeroTarjeta, fechaVencimiento, digitoVerificador, tipoTarjeta, numeroCuenta);
 
         log.info("Alta medio de pago para cliente: " + cliente.getCedula());
     }

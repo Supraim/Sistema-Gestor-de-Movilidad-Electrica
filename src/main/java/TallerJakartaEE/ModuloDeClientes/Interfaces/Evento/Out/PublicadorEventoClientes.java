@@ -11,11 +11,24 @@ public class PublicadorEventoClientes {
     @Inject
     private Event<ClienteRegistradoEvento> clienteRegistrado;
 
+    @Inject
+    private Event<MedioPagoRegistradoEvento> medioPagoRegistrado;
+
     public void publicarClienteRegistrado(Cliente cliente) {
         ClienteRegistradoEvento evento = new ClienteRegistradoEvento(
                 cliente.getCedula(),
                 cliente.getNombreCompleto()
         );
         clienteRegistrado.fire(evento);
+    }
+
+    public void publicarMedioPagoRegistrado(Long clienteId, String tipo, String numeroTarjeta,
+                                            String fechaVencimiento, String digitoVerificador,
+                                            String tipoTarjeta, String numeroCuenta) {
+        MedioPagoRegistradoEvento evento = new MedioPagoRegistradoEvento(
+                clienteId, tipo, numeroTarjeta, fechaVencimiento, digitoVerificador,
+                tipoTarjeta, numeroCuenta
+        );
+        medioPagoRegistrado.fire(evento);
     }
 }

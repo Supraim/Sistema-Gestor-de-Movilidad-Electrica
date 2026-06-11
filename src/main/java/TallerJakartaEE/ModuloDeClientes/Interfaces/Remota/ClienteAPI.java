@@ -74,7 +74,11 @@ public class ClienteAPI {
 
     // curl -X POST http://localhost:8080/movilidad-electrica/api/cliente/mobil/altaMedioPago \
     //   -H "Content-Type: application/json" \
-    //   -d '{"idCliente":1,"tipo":"TARJETA"}'
+    //   -d '{"idCliente":1,"tipo":"TARJETA","numeroTarjeta":"4111111111111111","fechaVencimiento":"2028-12","digitoVerificador":"123","tipoTarjeta":"VISA"}'
+    //
+    // curl -X POST http://localhost:8080/movilidad-electrica/api/cliente/mobil/altaMedioPago \
+    //   -H "Content-Type: application/json" \
+    //   -d '{"idCliente":1,"tipo":"CUENTA_UTE","numeroCuenta":"987654321"}'
     @POST
     @Path("mobil/altaMedioPago")
     @Consumes(MediaType.APPLICATION_JSON)
@@ -82,7 +86,8 @@ public class ClienteAPI {
     public Response altaMedioPago(MedioPagoDTO dto) {
         try {
             TipoMedioDePago tipo = TipoMedioDePago.valueOf(dto.tipo);
-            servicioCliente.altaMedioPago(dto.idCliente, tipo);
+            servicioCliente.altaMedioPago(dto.idCliente, tipo, dto.numeroTarjeta,
+                    dto.fechaVencimiento, dto.digitoVerificador, dto.tipoTarjeta, dto.numeroCuenta);
             return Response.ok("Medio de pago registrado correctamente").build();
         } catch (IllegalArgumentException e) {
             return Response.status(Response.Status.BAD_REQUEST).entity(e.getMessage()).build();
@@ -107,6 +112,13 @@ public class ClienteAPI {
 
     public static class MedioPagoDTO {
         public Long idCliente;
-        public String tipo;  // "TARJETA", "CUENTA_UTE"
+        public String tipo;              // "TARJETA", "CUENTA_UTE"
+        // Datos de tarjeta (solo si tipo = TARJETA)
+        public String numeroTarjeta;
+        public String fechaVencimiento;  // "2028-12"
+        public String digitoVerificador;
+        public String tipoTarjeta;       // "VISA", "MASTER", "AMEX"
+        // Datos de cuenta UTE (solo si tipo = CUENTA_UTE)
+        public String numeroCuenta;
     }
 }
