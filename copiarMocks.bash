@@ -16,13 +16,13 @@ echo -e "${AMARILLO}=== Copiando Mocks al Servidor WildFly ===${SIN_COLOR}"
 
 # Verificar existencia del directorio mocks
 if [ ! -d "$DIRECTORIO_MOCKS" ]; then
-    echo -e "${ROJO}❌ Error: No se encontró el directorio '$DIRECTORIO_MOCKS'${SIN_COLOR}"
+    echo -e "${ROJO} Error: No se encontró el directorio '$DIRECTORIO_MOCKS'${SIN_COLOR}"
     exit 1
 fi
 
 # Verificar que el servidor WildFly está corriendo
 if [ ! -d "$DIRECTORIO_DESTINO" ]; then
-    echo -e "${ROJO}❌ Error: No se encontró '$DIRECTORIO_DESTINO'${SIN_COLOR}"
+    echo -e "${ROJO} Error: No se encontró '$DIRECTORIO_DESTINO'${SIN_COLOR}"
     echo -e "${AMARILLO}   ¿Ya ejecutaste 'mvn wildfly:dev'? El servidor debe estar corriendo.${SIN_COLOR}"
     exit 1
 fi
@@ -42,9 +42,9 @@ for war in "$DIRECTORIO_MOCKS"/*.war; do
         nombre=$(basename "$war")
         echo -n "   → $nombre ... "
         if cp "$war" "$DIRECTORIO_DESTINO/"; then
-            echo -e "${VERDE}✅  Copiado${SIN_COLOR}"
+            echo -e "${VERDE} Copiado${SIN_COLOR}"
         else
-            echo -e "${ROJO}❌ Error al copiar${SIN_COLOR}"
+            echo -e "${ROJO} Error al copiar${SIN_COLOR}"
         fi
     fi
 done

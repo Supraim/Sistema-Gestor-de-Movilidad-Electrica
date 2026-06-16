@@ -2,6 +2,7 @@ package TallerJakartaEE.ModuloDeCarga.Interfaces.Remota;
 
 import TallerJakartaEE.ModuloDeCarga.Aplicacion.Interfaz.ServicioCarga;
 import TallerJakartaEE.ModuloDeCarga.Dominio.*;
+import TallerJakartaEE.ModuloDeCarga.Infraestructura.RateLimiter.RateLimited;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.*;
@@ -92,6 +93,7 @@ public class CargaAPI {
     // PARA QUE FUNQUE UN CURL CON AND SE TIENE QUE ENCERRAR TODA LA URL EN ""
     @GET
     @Path("/mobil/verHistoricoDeCargas")
+    @RateLimited
     @Produces(MediaType.APPLICATION_JSON)
     public Response verHistoricoDeCargas(
             @QueryParam("idCliente") Long idCliente,
