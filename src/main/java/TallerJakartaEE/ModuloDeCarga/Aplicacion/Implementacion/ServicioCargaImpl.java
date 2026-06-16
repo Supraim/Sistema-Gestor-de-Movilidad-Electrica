@@ -67,6 +67,9 @@ public class ServicioCargaImpl implements ServicioCarga {
         cargador.setEstado(EstadoCargador.EN_USO);
 
         log.info("Carga iniciada para cliente: " + cliente.getNombreCompleto() + " en cargador: " + idCargador);
+
+        // Evento para monitoreo
+        publicadorEvento.publicarCargaIniciada(idCliente, idCargador);
     }
 
     @Override

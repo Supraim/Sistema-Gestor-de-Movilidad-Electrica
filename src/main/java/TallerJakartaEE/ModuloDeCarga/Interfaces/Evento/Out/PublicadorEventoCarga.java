@@ -10,8 +10,16 @@ public class PublicadorEventoCarga {
     @Inject
     private Event<CargaFinalizadaEvento> cargaFinalizada;
 
+    @Inject
+    private Event<CargaIniciadaEvento> cargaIniciada;
+
     public void publicarCargaFinalizada(Long clienteId, float importe, float recargo, Long medioDePagoId) {
         CargaFinalizadaEvento evento = new CargaFinalizadaEvento(clienteId, importe, recargo, medioDePagoId);
         cargaFinalizada.fire(evento);
+    }
+
+    public void publicarCargaIniciada(Long clienteId, Long cargadorId) {
+        CargaIniciadaEvento evento = new CargaIniciadaEvento(clienteId, cargadorId);
+        cargaIniciada.fire(evento);
     }
 }

@@ -7,6 +7,7 @@ import TallerJakartaEE.ModuloDePagos.Dominio.CuentaUTE;
 import TallerJakartaEE.ModuloDePagos.Dominio.MedioDePago;
 import TallerJakartaEE.ModuloDePagos.Dominio.Tarjeta;
 import TallerJakartaEE.ModuloDePagos.Dominio.Repositorio.PagosRepositorio;
+import TallerJakartaEE.ModuloDePagos.Interfaces.Evento.Out.PublicadorEventoPagos;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
@@ -30,6 +31,9 @@ public class ServicioPagosImpl implements ServicioPagos {
 
     @Inject
     private PagosRepositorio repositorio;
+
+    @Inject
+    private PublicadorEventoPagos publicadorEvento;
 
     @Override
     @Transactional
@@ -73,8 +77,12 @@ public class ServicioPagosImpl implements ServicioPagos {
 
             String respuesta = response.readEntity(String.class);
             log.info("Respuesta mock tarjeta: " + respuesta);
+
+            boolean exitoso = respuesta.contains("\"aprobado\":true");
+            publicadorEvento.publicarPagoRealizado("TARJETA", exitoso, total);
         } catch (Exception e) {
             log.warning("Error al comunicarse con mock de tarjeta: " + e.getMessage());
+            publicadorEvento.publicarPagoRealizado("TARJETA", false, total);
         }
     }
 
@@ -94,8 +102,11 @@ public class ServicioPagosImpl implements ServicioPagos {
 
             String respuesta = response.readEntity(String.class);
             log.info("Respuesta mock UTE: " + respuesta);
+
+            publicadorEvento.publicarPagoRealizado("CUENTA_UTE", true, total);
         } catch (Exception e) {
             log.warning("Error al comunicarse con mock de UTE: " + e.getMessage());
+            publicadorEvento.publicarPagoRealizado("CUENTA_UTE", false, total);
         }
     }
 
