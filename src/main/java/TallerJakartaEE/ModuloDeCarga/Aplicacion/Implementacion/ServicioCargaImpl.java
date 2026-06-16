@@ -8,8 +8,7 @@ import TallerJakartaEE.ModuloDeCarga.Dominio.EstadoCarga;
 import TallerJakartaEE.ModuloDeCarga.Dominio.EstadoCargador;
 import TallerJakartaEE.ModuloDeCarga.Dominio.Repositorio.CargaRepositorio;
 import TallerJakartaEE.ModuloDeCarga.Dominio.Cliente;
-// El import de abajo eventualmente se cambiara por un import del modulo actual
-import TallerJakartaEE.ModuloDePagos.Dominio.MedioDePago;
+import TallerJakartaEE.ModuloDeCarga.Interfaces.Evento.Out.PublicadorEventoCarga;
 
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
@@ -25,9 +24,12 @@ public class ServicioCargaImpl implements ServicioCarga {
     @Inject
     private CargaRepositorio repositorio;
 
+    @Inject
+    private PublicadorEventoCarga publicadorEvento;
+
     @Override
     @Transactional
-    public void iniciarCarga(Long idCliente, Long idCargador) {
+    public void iniciarCarga(Long idCliente, Long idCargador, Long medioDePagoId) {
         Cliente cliente = repositorio.findClienteById(idCliente);
         if (cliente == null) {
             throw new IllegalArgumentException("No existe un cliente con el ID: " + idCliente);
@@ -53,6 +55,7 @@ public class ServicioCargaImpl implements ServicioCarga {
         carga.setEstado(EstadoCarga.CARGANDO);
         carga.setPorcentajeAvance(0);
         carga.setCargador(cargador);
+        carga.setMedioDePagoId(medioDePagoId);
 
         repositorio.save(carga);
 
@@ -104,7 +107,8 @@ public class ServicioCargaImpl implements ServicioCarga {
         log.info("Carga finalizada para cliente: " + cliente.getNombreCompleto()
                 + " | Consumo: " + consumo + " | Recargo: " + recargo);
 
-        // TODO: disparar evento hacia ModuloDePagos para cobrar la carga
+        // Disparar evento hacia ModuloDePagos para cobrar la carga
+        publicadorEvento.publicarCargaFinalizada(cliente.getId(), consumo, recargo, carga.getMedioDePagoId());
     }
 
     @Override

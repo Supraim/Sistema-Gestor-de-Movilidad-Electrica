@@ -35,4 +35,6 @@ public class Carga {
     @ManyToOne
     @JoinColumn(name = "cargador_id")
     private Cargador cargador;
+
+    private Long medioDePagoId;
 }

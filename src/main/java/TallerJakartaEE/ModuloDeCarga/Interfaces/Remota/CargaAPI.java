@@ -117,7 +117,7 @@ public class CargaAPI {
     @Produces(MediaType.APPLICATION_JSON)
     public Response iniciarCarga(IniciarCargaDTO dto) {
         try {
-            servicioCarga.iniciarCarga(dto.idCliente, dto.idCargador);
+            servicioCarga.iniciarCarga(dto.idCliente, dto.idCargador, dto.medioDePagoId);
             return Response.ok("Carga iniciada correctamente").build();
         } catch (IllegalArgumentException e) {
             return Response.status(Response.Status.BAD_REQUEST).entity(e.getMessage()).build();
@@ -174,6 +174,7 @@ public class CargaAPI {
     public static class IniciarCargaDTO {
         public Long idCliente;
         public Long idCargador;
+        public Long medioDePagoId;
     }
 
     public static class FinalizarCargaDTO {

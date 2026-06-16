@@ -16,4 +16,9 @@ public class PagosRepositorioImpl implements PagosRepositorio {
     public void save(MedioDePago medioDePago) {
         em.persist(medioDePago);
     }
+
+    @Override
+    public MedioDePago findById(Long id) {
+        return em.find(MedioDePago.class, id);
+    }
 }

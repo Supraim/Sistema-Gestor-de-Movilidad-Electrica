@@ -1,6 +1,8 @@
 package TallerJakartaEE.ModuloDePagos.Interfaces.Evento.In;
 
+import TallerJakartaEE.ModuloDeCarga.Interfaces.Evento.Out.CargaFinalizadaEvento;
 import TallerJakartaEE.ModuloDeClientes.Interfaces.Evento.Out.MedioPagoRegistradoEvento;
+import TallerJakartaEE.ModuloDePagos.Aplicacion.Interfaz.ServicioPagos;
 import TallerJakartaEE.ModuloDePagos.Dominio.CuentaUTE;
 import TallerJakartaEE.ModuloDePagos.Dominio.MedioDePago;
 import TallerJakartaEE.ModuloDePagos.Dominio.Tarjeta;
@@ -22,6 +24,9 @@ public class ObserverModuloPagos {
 
     @Inject
     private PagosRepositorio repositorio;
+
+    @Inject
+    private ServicioPagos servicioPagos;
 
     @Transactional
     public void onMedioPagoRegistrado(@Observes MedioPagoRegistradoEvento evento) {
@@ -56,6 +61,15 @@ public class ObserverModuloPagos {
         }
 
         repositorio.save(medioDePago);
+    }
+
+    public void onCargaFinalizada(@Observes CargaFinalizadaEvento evento) {
+        log.info("Evento recibido: CargaFinalizada - clienteId: " + evento.getClienteId()
+                + " | importe: " + evento.getImporte()
+                + " | recargo: " + evento.getRecargo()
+                + " | medioDePagoId: " + evento.getMedioDePagoId());
+
+        servicioPagos.pagarCarga(evento.getMedioDePagoId(), evento.getImporte(), evento.getRecargo());
     }
 
     private Date parseFechaVencimiento(String fecha) {

@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 public interface ServicioCarga {
-    void iniciarCarga(Long idCliente, Long idCargador);
+    void iniciarCarga(Long idCliente, Long idCargador, Long medioDePagoId);
     Carga verCargaActual(Long idCliente);
     List<Carga> verHistorico(Long idCliente, LocalDateTime inicio, LocalDateTime fin);
     void finalizarCarga(Long idCargador, float consumo, float recargo);

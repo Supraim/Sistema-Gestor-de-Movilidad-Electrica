@@ -1,8 +1,7 @@
 package TallerJakartaEE.ModuloDePagos.Aplicacion.Interfaz;
 
 import TallerJakartaEE.ModuloDeCarga.Dominio.Carga;
-import TallerJakartaEE.ModuloDeClientes.Dominio.Cliente;
-import TallerJakartaEE.ModuloDePagos.Dominio.MedioDePago;
+import TallerJakartaEE.ModuloDeCarga.Dominio.Cliente;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -10,15 +9,10 @@ import java.util.List;
 public interface ServicioPagos {
 
     /**
-     * Se invoca cuando finaliza la carga. Es el encargado de cobrar la carga utilizando el medio
-     * de pago correspondiente (Tarjeta, Factura UTE).
+     * Se invoca cuando finaliza la carga. Busca el medio de pago por ID y
+     * cobra al servicio externo correspondiente (tarjeta o cuenta UTE).
      */
-    void pagarCarga(Cliente cliente, float importe, MedioDePago medioPago);
+    void pagarCarga(Long medioDePagoId, float importe, float recargo);
 
-    /**
-     * Retorna la lista de pagos realizados por el cliente. La lista de pagos debería de coincidir
-     * con la lista de cargas. La información que devuelva este proceso ayudará a conciliar
-     * información.
-     */
     List<Carga> consultarPagos(Cliente cliente, LocalDateTime inicio, LocalDateTime fin);
 }
