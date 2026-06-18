@@ -3,6 +3,7 @@ package TallerJakartaEE.ModuloDeCarga.Interfaces.Remota;
 import TallerJakartaEE.ModuloDeCarga.Aplicacion.Interfaz.ServicioCarga;
 import TallerJakartaEE.ModuloDeCarga.Dominio.*;
 import TallerJakartaEE.ModuloDeCarga.Infraestructura.RateLimiter.RateLimited;
+import jakarta.annotation.security.RolesAllowed;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.*;
@@ -21,9 +22,12 @@ public class CargaAPI {
     @Inject
     private ServicioCarga servicioCarga;
 
-    // curl -X POST http://localhost:8080/movilidad-electrica/api/carga/registrarEstacion \
-    //   -H "Content-Type: application/json" \
-    //   -d '{"descripcion":"Veni a cargar tu auto electrico con nosotros!","calle":"Roman Guerra","departamento":"Maldonado","longitud":33,"latitud":-8}'
+    /*
+        curl -X POST http://localhost:8080/movilidad-electrica/api/carga/registrarEstacion \
+       -H "Content-Type: application/json" \
+       -d '{"descripcion":"Veni a cargar tu auto electrico con nosotros!","calle":"Roman Guerra","departamento":"Maldonado","longitud":33,"latitud":-8}'
+    */
+
     @POST
     @Path("/registrarEstacion")
     @Consumes(MediaType.APPLICATION_JSON)
@@ -89,11 +93,12 @@ public class CargaAPI {
         return Response.ok(estaciones).build();
     }
 
-    // curl -u 'mobil:Mobil123!' "http://localhost:8080/movilidad-electrica/api/carga/mobil/verHistoricoDeCargas?idCliente=1&fechaInicio=2020-01-01%2000:00:00&fechaFin=2030-12-31%2023:59:59"
+    // curl -u '12345678:pass123' "http://localhost:8080/movilidad-electrica/api/carga/mobil/verHistoricoDeCargas?idCliente=1&fechaInicio=2020-01-01%2000:00:00&fechaFin=2030-12-31%2023:59:59"
     // PARA QUE FUNQUE UN CURL CON AND SE TIENE QUE ENCERRAR TODA LA URL EN ""
     @GET
     @Path("/mobil/verHistoricoDeCargas")
     @RateLimited
+    @RolesAllowed("mobil")
     @Produces(MediaType.APPLICATION_JSON)
     public Response verHistoricoDeCargas(
             @QueryParam("idCliente") Long idCliente,
@@ -115,6 +120,7 @@ public class CargaAPI {
     //   -d '{"idCliente":1,"idCargador":1}'
     @POST
     @Path("/mobil/iniciarCarga")
+    @RolesAllowed("mobil")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     public Response iniciarCarga(IniciarCargaDTO dto) {
@@ -145,6 +151,7 @@ public class CargaAPI {
     // curl http://localhost:8080/movilidad-electrica/api/carga/mobil/verCargaActual?idCliente=1
     @GET
     @Path("/mobil/verCargaActual")
+    @RolesAllowed("mobil")
     @Produces(MediaType.APPLICATION_JSON)
     public Response verCargaActual(@QueryParam("idCliente") Long idCliente){
         try {

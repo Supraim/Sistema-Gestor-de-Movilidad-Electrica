@@ -6,6 +6,7 @@ import TallerJakartaEE.ModuloDeClientes.Dominio.ClienteComun;
 import TallerJakartaEE.ModuloDeClientes.Dominio.ClienteProfesional;
 import TallerJakartaEE.ModuloDeClientes.Dominio.TipoProfesion;
 import TallerJakartaEE.ModuloDeClientes.Dominio.TipoMedioDePago;
+import jakarta.annotation.security.RolesAllowed;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.*;
@@ -21,9 +22,12 @@ public class ClienteAPI {
     @Inject
     private ServicioCliente servicioCliente;
 
-    // curl -X POST http://localhost:8080/movilidad-electrica/api/cliente/mobil/registrar \
-    //   -H "Content-Type: application/json" \
-    //   -d '{"cedula":"12345678","nombreCompleto":"Juan Perez","telefono":"099123456","contra":"pass123","esProfesional":false}'
+    /*
+    curl -X POST http://localhost:8080/movilidad-electrica/api/cliente/mobil/registrar \
+    -H "Content-Type: application/json" \
+    -d '{"cedula":"12345678","nombreCompleto":"Juan Perez","telefono":"099123456","contra":"pass123","esProfesional":false}'
+   */
+
     @POST
     @Path("mobil/registrar")
     @Consumes(MediaType.APPLICATION_JSON)
@@ -52,6 +56,7 @@ public class ClienteAPI {
     //   -d '{"comentario":"El cobre que me vendieron es una caca","idCliente":"1"}'
     @POST
     @Path("mobil/registrarReclamo")
+    @RolesAllowed("mobil")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     public Response registrarReclamo(ReclamoRegistroDTO dtoRec){
@@ -81,6 +86,7 @@ public class ClienteAPI {
     //   -d '{"idCliente":1,"tipo":"CUENTA_UTE","numeroCuenta":"987654321"}'
     @POST
     @Path("mobil/altaMedioPago")
+    @RolesAllowed("mobil")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     public Response altaMedioPago(MedioPagoDTO dto) {

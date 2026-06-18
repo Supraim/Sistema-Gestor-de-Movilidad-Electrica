@@ -78,6 +78,14 @@
             <artifactId>micrometer-registry-influx</artifactId>
             <version>1.13.0</version>
         </dependency>
+        <dependency>
+            <groupId>jakarta.security.enterprise</groupId>
+            <artifactId>jakarta.security.enterprise-api</artifactId>
+            <scope>provided</scope>
+            <version>3.0.0</version>
+        </dependency>
+
+
     </dependencies>
 
     <build>
@@ -102,18 +110,7 @@
                 <configuration>
                     <version>${wildfly.version}</version>
                     <server-config>standalone-full.xml</server-config>
-                    <add-user>
-                        <users>
-                            <user>
-                                <username>mobil</username>
-                                <password>Mobil123!</password>
-                                <application-user>true</application-user>
-                                <groups>
-                                    <group>mobil</group>
-                                </groups>
-                            </user>
-                        </users>
-                    </add-user>
+
                     <scripts>
                         <script>config.cli</script>
                     </scripts>

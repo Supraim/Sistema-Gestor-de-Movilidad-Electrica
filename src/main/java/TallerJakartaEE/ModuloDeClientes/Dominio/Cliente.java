@@ -29,7 +29,24 @@ public abstract class Cliente {
     @JsonbTransient
     protected List<Reclamo> reclamos = new ArrayList<>();
 
+    public String getNombreCompleto() {
+        return nombreCompleto;
+    }
+
     public void registrarReclamo(Reclamo reclamo){
         reclamos.add(reclamo);
     }
+
+    public boolean contraCorrecta(String contrasenia) {
+       System.out.println("MOSTRADO DE CONTRAS COMPARACION");
+        System.out.println("CONTRA:" + this.contra);
+        System.out.println("contraseNIa:" + contrasenia);
+        if(contrasenia.equals(this.contra)){
+            System.out.println("RETURN TRUUU");
+            return true;
+        }else{
+            return false;
+        }
+    }
+
 }
