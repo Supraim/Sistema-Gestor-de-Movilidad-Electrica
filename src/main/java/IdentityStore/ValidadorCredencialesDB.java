@@ -48,6 +48,10 @@ public class ValidadorCredencialesDB implements IdentityStore{
 		}
 		System.out.println("Retornando usuario: " + usr);
 		System.out.println("Roles: " + Set.of("mobil"));
+		System.out.println("RESULTADOOO:" + resultado.getCallerPrincipal());
+		System.out.println("RESULTADOOO:" + resultado.getCallerGroups());
+
+
 		return resultado;
 	
 	}
