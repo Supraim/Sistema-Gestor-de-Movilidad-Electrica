@@ -14,5 +14,5 @@ public interface ServicioPagos {
      */
     void pagarCarga(Long medioDePagoId, float importe, float recargo);
 
-    List<Carga> consultarPagos(Cliente cliente, LocalDateTime inicio, LocalDateTime fin);
+    List<Carga> consultarPagos(Long idCliente, LocalDateTime inicio, LocalDateTime fin);
 }

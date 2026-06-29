@@ -111,7 +111,8 @@ public class ServicioPagosImpl implements ServicioPagos {
     }
 
     @Override
-    public List<Carga> consultarPagos(Cliente cliente, LocalDateTime inicio, LocalDateTime fin) {
+    public List<Carga> consultarPagos(Long idCliente, LocalDateTime inicio, LocalDateTime fin) {
+
         return List.of();
     }
 }
