@@ -2,6 +2,7 @@ package TallerJakartaEE.ModuloDeMonitoreo.Infraestructura;
 
 import io.micrometer.core.instrument.Clock;
 import io.micrometer.core.instrument.MeterRegistry;
+import io.micrometer.influx.InfluxApiVersion;
 import io.micrometer.influx.InfluxConfig;
 import io.micrometer.influx.InfluxMeterRegistry;
 import jakarta.annotation.PostConstruct;
@@ -36,10 +37,29 @@ public class RegistradorDeMetricas {
                 return Duration.ofSeconds(10);
             }
 
-            // nombre de la bd de influx
             @Override
-            public String db() {
+            public String uri() {
+                return "http://localhost:8086";
+            }
+
+            @Override
+            public String org() {
+                return "tallerjava";
+            }
+
+            @Override
+            public String bucket() {
                 return "metricasTallerJava";
+            }
+
+            @Override
+            public String token() {
+                return "mi-token-tallerjava";
+            }
+
+            @Override
+            public InfluxApiVersion apiVersion() {
+                return InfluxApiVersion.V2;
             }
         };
 
