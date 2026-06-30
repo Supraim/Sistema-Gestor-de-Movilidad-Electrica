@@ -51,7 +51,7 @@ public class ClienteAPI {
         }
     }
 
-    // curl -X POST http://localhost:8080/movilidad-electrica/api/cliente/mobil/registrarReclamo \
+    // curl -u '12345678:pass123' -X POST http://localhost:8080/movilidad-electrica/api/cliente/mobil/registrarReclamo \
     //   -H "Content-Type: application/json" \
     //   -d '{"comentario":"El cobre que me vendieron es una caca","idCliente":"1"}'
     @POST
@@ -81,7 +81,7 @@ public class ClienteAPI {
     //   -H "Content-Type: application/json" \
     //   -d '{"idCliente":1,"tipo":"TARJETA","numeroTarjeta":"4111111111111111","fechaVencimiento":"2028-12","digitoVerificador":"123","tipoTarjeta":"VISA"}'
     //
-    // curl -X POST http://localhost:8080/movilidad-electrica/api/cliente/mobil/altaMedioPago \
+    // curl -u '12345678:pass123' -X POST http://localhost:8080/movilidad-electrica/api/cliente/mobil/altaMedioPago \
     //   -H "Content-Type: application/json" \
     //   -d '{"idCliente":1,"tipo":"CUENTA_UTE","numeroCuenta":"987654321"}'
     @POST

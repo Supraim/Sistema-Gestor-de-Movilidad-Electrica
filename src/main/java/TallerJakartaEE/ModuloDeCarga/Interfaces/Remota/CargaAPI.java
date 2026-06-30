@@ -84,9 +84,10 @@ public class CargaAPI {
         }
     }
 
-    // curl http://localhost:8080/movilidad-electrica/api/carga/obtenerEstaciones
+    // curl -u '12345678:pass123' http://localhost:8080/movilidad-electrica/api/carga/mobil/obtenerEstaciones
     @GET
-    @Path("/obtenerEstaciones")
+    @Path("/mobil/obtenerEstaciones")
+    @RolesAllowed("mobil")
     @Produces(MediaType.APPLICATION_JSON)
     public Response obtenerEstaciones(){
         List<EstacionDeCarga> estaciones = servicioCarga.obtenerEstaciones();
@@ -115,7 +116,7 @@ public class CargaAPI {
         return Response.ok(cargasCliente).build();
     }
 
-    // curl -X POST http://localhost:8080/movilidad-electrica/api/carga/mobil/iniciarCarga \
+    // curl -u '12345678:pass123' -X POST http://localhost:8080/movilidad-electrica/api/carga/mobil/iniciarCarga \
     //   -H "Content-Type: application/json" \
     //   -d '{"idCliente":1,"idCargador":1}'
     @POST
@@ -148,7 +149,7 @@ public class CargaAPI {
         }
     }
 
-    // curl http://localhost:8080/movilidad-electrica/api/carga/mobil/verCargaActual?idCliente=1
+    // curl -u '12345678:pass123' http://localhost:8080/movilidad-electrica/api/carga/mobil/verCargaActual?idCliente=1
     @GET
     @Path("/mobil/verCargaActual")
     @RolesAllowed("mobil")

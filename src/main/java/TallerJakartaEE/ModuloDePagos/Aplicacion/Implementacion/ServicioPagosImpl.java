@@ -1,8 +1,7 @@
 package TallerJakartaEE.ModuloDePagos.Aplicacion.Implementacion;
 
-import TallerJakartaEE.ModuloDeCarga.Dominio.Carga;
-import TallerJakartaEE.ModuloDeCarga.Dominio.Cliente;
 import TallerJakartaEE.ModuloDePagos.Aplicacion.Interfaz.ServicioPagos;
+import TallerJakartaEE.ModuloDePagos.Dominio.Carga;
 import TallerJakartaEE.ModuloDePagos.Dominio.CuentaUTE;
 import TallerJakartaEE.ModuloDePagos.Dominio.MedioDePago;
 import TallerJakartaEE.ModuloDePagos.Dominio.Tarjeta;
@@ -16,7 +15,6 @@ import jakarta.ws.rs.client.ClientBuilder;
 import jakarta.ws.rs.client.Entity;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
-
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -112,7 +110,6 @@ public class ServicioPagosImpl implements ServicioPagos {
 
     @Override
     public List<Carga> consultarPagos(Long idCliente, LocalDateTime inicio, LocalDateTime fin) {
-
-        return List.of();
+        return repositorio.consultarPagos(idCliente, inicio, fin);
     }
 }

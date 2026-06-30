@@ -1,7 +1,6 @@
 package TallerJakartaEE.ModuloDePagos.Aplicacion.Interfaz;
 
-import TallerJakartaEE.ModuloDeCarga.Dominio.Carga;
-import TallerJakartaEE.ModuloDeCarga.Dominio.Cliente;
+import TallerJakartaEE.ModuloDePagos.Dominio.Carga;
 
 import java.time.LocalDateTime;
 import java.util.List;
