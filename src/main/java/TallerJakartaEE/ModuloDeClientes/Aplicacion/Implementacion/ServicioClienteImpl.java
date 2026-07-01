@@ -6,6 +6,7 @@ import TallerJakartaEE.ModuloDeClientes.Dominio.MedioDePago;
 import TallerJakartaEE.ModuloDeClientes.Dominio.Reclamo;
 import TallerJakartaEE.ModuloDeClientes.Dominio.Repositorio.ClienteRepositorio;
 import TallerJakartaEE.ModuloDeClientes.Dominio.TipoMedioDePago;
+import TallerJakartaEE.ModuloDeClientes.Infraestructura.Messaging.ReclamoProducer;
 import TallerJakartaEE.ModuloDeClientes.Interfaces.Evento.Out.PublicadorEventoClientes;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
@@ -24,6 +25,9 @@ public class ServicioClienteImpl implements ServicioCliente {
 
     @Inject
     private PublicadorEventoClientes publicadorEvento;
+
+    @Inject
+    private ReclamoProducer reclamoProducer;
 
     @Override
     @Transactional
@@ -80,5 +84,10 @@ public class ServicioClienteImpl implements ServicioCliente {
 
         log.info("Registrando reclamo para cliente: " + cliente.getNombreCompleto());
         repositorio.saveReclamo(reclamo);
+
+        // Enviarlo a la cola para procesarlo asincronicamente
+        reclamoProducer.enviarReclamo(clienteId, comentario);
+
+        log.info("Reclamo aceptado y enviado a la cola cliente: " + cliente.getNombreCompleto());
     }
 }

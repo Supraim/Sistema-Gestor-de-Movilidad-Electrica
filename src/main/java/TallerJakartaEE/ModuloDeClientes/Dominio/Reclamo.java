@@ -24,6 +24,8 @@ public class Reclamo {
     @JoinColumn(name = "cliente_id")
     private Cliente cliente;
 
+    private String etiqueta; // POSITIVO, NEGATIVO, NEUTRO (el LLM lo asigna)
+
     public Reclamo(String comentario, LocalDateTime fecha, Cliente cliente){
         this.comentario = comentario;
         this.fecha = fecha;

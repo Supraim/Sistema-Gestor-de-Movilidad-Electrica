@@ -19,3 +19,10 @@ connect
     catch
         echo "No se crea datasource, ya existe"
     end-try
+
+    try
+        jms-queue add --queue-address=colaReclamos --entries=[java:/jms/queue/colaReclamos]
+        echo "Se crea queue JMS: colaReclamos"
+    catch
+        echo "No se crea queue, ya existe"
+    end-try
